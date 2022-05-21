@@ -15,17 +15,12 @@ enum
 
 class Tile
 {
-	private:
+	protected:
 		std::array<int, 4> Aretes;
 
-		cgp::mesh quadrangle_mesh;
-		cgp::mesh_drawable shape;
-		GLuint texture_image_id;
-		std::string texture_file;
-
 	public:
-		Tile(int type);
+		Tile();
 		bool isNeighbor(Tile* voisin, int direction);
-		void drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment);
-		void initialiseTexture();
+		virtual void drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment) = 0;
+		virtual void initialiseTile() = 0;
 };

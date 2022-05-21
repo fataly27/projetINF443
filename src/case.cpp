@@ -1,12 +1,13 @@
 #include "case.hpp"
+#include "2dtile.hpp"
 #include <cstdlib>
 
-std::array<Tile, N> Case::Tiles = { Tile(0), Tile(1), Tile(2), Tile(3), Tile(4), Tile(5), Tile(6), Tile(7), Tile(8), Tile(9), Tile(10), Tile(11), Tile(12), Tile(13), Tile(14), Tile(15) };
+std::array<Tile*, N> Case::Tiles = { new TextureTile(0), new TextureTile(1), new TextureTile(2), new TextureTile(3), new TextureTile(4), new TextureTile(5), new TextureTile(6), new TextureTile(7), new TextureTile(8), new TextureTile(9), new TextureTile(10), new TextureTile(11), new TextureTile(12), new TextureTile(13), new TextureTile(14), new TextureTile(15) };
 
 void Case::initialiseTiles()
 {
 	for (int i = 0; i < N; i++)
-		Tiles[i].initialiseTexture();
+		Tiles[i]->initialiseTile();
 }
 
 void Case::fixTile()
@@ -71,7 +72,7 @@ void Case::update()
 	{
 		if (TilesDispo[i])
 		{
-			TilesDispo[i] = (Neighbors[Up] == nullptr || Neighbors[Up]->isNeighborCase(&Tiles[i], Down)) && (Neighbors[Down] == nullptr || Neighbors[Down]->isNeighborCase(&Tiles[i], Up)) && (Neighbors[Right] == nullptr || Neighbors[Right]->isNeighborCase(&Tiles[i], Left)) && (Neighbors[Left] == nullptr || Neighbors[Left]->isNeighborCase(&Tiles[i], Right));
+			TilesDispo[i] = (Neighbors[Up] == nullptr || Neighbors[Up]->isNeighborCase(Tiles[i], Down)) && (Neighbors[Down] == nullptr || Neighbors[Down]->isNeighborCase(Tiles[i], Up)) && (Neighbors[Right] == nullptr || Neighbors[Right]->isNeighborCase(Tiles[i], Left)) && (Neighbors[Left] == nullptr || Neighbors[Left]->isNeighborCase(Tiles[i], Right));
 			if (!TilesDispo[i])
 			{
 				changed = true;
@@ -108,7 +109,7 @@ bool Case::isNeighborCase(Tile* tile, int dir)
 	{
 		if (TilesDispo[i])
 		{
-			if (Tiles[i].isNeighbor(tile, dir))
+			if (Tiles[i]->isNeighbor(tile, dir))
 				return true;
 		}
 	}
@@ -123,5 +124,5 @@ bool Case::isCaseFixed()
 void Case::drawCase(scene_environment_with_multiple_lights environment)
 {
 	if (isFixed)
-		Tiles[FixedTile].drawTile(Position, environment);
+		Tiles[FixedTile]->drawTile(Position, environment);
 }

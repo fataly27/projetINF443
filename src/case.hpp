@@ -10,7 +10,7 @@
 class Case
 {
 	private:
-		static std::array<Tile, N> Tiles;
+		static std::array<Tile*, N> Tiles;
 
 		std::array<bool, N> TilesDispo;
 		std::array<Case*, 4> Neighbors;

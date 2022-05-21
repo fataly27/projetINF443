@@ -104,10 +104,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\2dtile.hpp" />
     <ClInclude Include="..\src\case.hpp" />
     <ClInclude Include="..\src\terrain.hpp" />
     <ClInclude Include="..\src\tile.hpp" />
     <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\cgp\library\cgp\base\base.hpp" />
+    <ClCompile Include="..\src\2dtile.cpp" />
     <ClCompile Include="..\src\case.cpp" />
     <ClCompile Include="..\src\terrain.cpp" />
     <ClCompile Include="..\src\tile.cpp" />
