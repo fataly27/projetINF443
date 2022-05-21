@@ -1,0 +1,10 @@
+^D:\DOCUMENTS\ECOLE\X-2A\INF443\PROJET\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Documents/Ecole/X-2A/INF443/projet -BD:/Documents/Ecole/X-2A/INF443/projet/build --check-stamp-file D:/Documents/Ecole/X-2A/INF443/projet/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
