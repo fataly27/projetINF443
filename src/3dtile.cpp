@@ -1,6 +1,6 @@
-#include "2dtile.hpp"
+#include "3dtile.hpp"
 
-TextureTile::TextureTile(int type) : Tile()
+VolumeTile::VolumeTile(int type) : Tile()
 {
 	int dir = Up;
 
@@ -156,14 +156,14 @@ TextureTile::TextureTile(int type) : Tile()
 	quadrangle_mesh.fill_empty_field();
 }
 
-void TextureTile::initialiseTile()
+void VolumeTile::initialiseTile()
 {
 	texture_image_id = cgp::opengl_load_texture_image(texture_file, GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 	shape.initialize(quadrangle_mesh, "Shape");
 	shape.texture = texture_image_id;
 }
 
-void TextureTile::drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment)
+void VolumeTile::drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment)
 {
 	shape.transform.translation = position;
 	cgp::draw(shape, environment);

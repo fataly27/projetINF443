@@ -6,7 +6,7 @@
 #include "multiple_lights/multiple_lights.hpp"
 
 
-class TextureTile : public Tile
+class VolumeTile : public Tile
 {
 	private:
 		cgp::mesh quadrangle_mesh;
@@ -15,7 +15,7 @@ class TextureTile : public Tile
 		std::string texture_file;
 
 	public:
-		TextureTile(int type);
+		VolumeTile(int type);
 		virtual void drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment) override;
 		virtual void initialiseTile() override;
 };
