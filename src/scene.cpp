@@ -9,6 +9,7 @@
 using namespace cgp;
 
 BoidTile BT(0);
+FountainTile FT(0);
 
 void scene_structure::initialize()
 {
@@ -116,6 +117,7 @@ void scene_structure::initialize()
 	}
 
 	BT.initialiseTile();
+	FT.initialiseTile();
 
 }
 
@@ -136,6 +138,10 @@ void scene_structure::display()
 	
 	BT.updateTile(dt);
 	BT.drawTile({0,10,0}, environment);
+
+	FT.updateTile(dt);
+	FT.drawTile({ 0,0,0 }, environment);
+
 
 
 	// Display the elements of the scene

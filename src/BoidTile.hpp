@@ -10,7 +10,6 @@
 
 class BoidTile : public Tile
 { 
-
 private:
 	Boid B[NBoids];
 	cgp::mesh mesh_green;

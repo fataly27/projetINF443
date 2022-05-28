@@ -6,7 +6,7 @@ BoidTile::BoidTile(int) : Tile()
 	Aretes[Down] = 0;
 	Aretes[Left] = 0;
 	Aretes[Right] = 0;
-	mesh_green = cgp::mesh_load_file_obj("assets/tiles/0000.obj");
+	mesh_green = cgp::mesh_load_file_obj("assets/tiles/0000/green.obj");
 	mesh_green.fill_empty_field();
 
 
