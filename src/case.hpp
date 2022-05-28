@@ -4,6 +4,8 @@
 #include "tile.hpp"
 #include "cgp/cgp.hpp"
 #include "multiple_lights/multiple_lights.hpp"
+#include "2dtile.hpp"
+#include "BoidTile.hpp"
 
 #define N 16
 
