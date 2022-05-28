@@ -9,3 +9,8 @@ bool Tile::isNeighbor(Tile* voisin, int direction)
 {
 	return voisin->Aretes[(direction + 2) % 4] == Aretes[direction];
 }
+
+void Tile::updateTile(float)
+{
+	return;
+}

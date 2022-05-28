@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cgp/cgp.hpp"
+#include "multiple_lights/multiple_lights.hpp"
 
 class Boid
 {
@@ -11,7 +12,7 @@ public :
 	cgp::vec3 debugCenter;
 	cgp::mesh_drawable debugSphere;
 
-	static float factors[5];
+	static float factors[6];
 	static float proximity[3];
 	static float v;
 
@@ -32,6 +33,7 @@ private:
 	cgp::vec3 avoidOthers();
 	cgp::vec3 flyTowardOthers();
 	cgp::vec3 alignWithOthers();
+	cgp::vec3 flyRandom();
 	
 	
 
@@ -51,5 +53,5 @@ public:
 	void applyForces();
 	void update(float dt);
 	void initialize();
-	void drawBoid(cgp::scene_environment_basic_camera_spherical_coords);
+	void drawBoid(scene_environment_with_multiple_lights, cgp::vec3 offset = { 0,0,0 });
 };

@@ -21,6 +21,7 @@ class Tile
 	public:
 		Tile();
 		bool isNeighbor(Tile* voisin, int direction);
+		virtual void updateTile(float);
 		virtual void drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment) = 0;
 		virtual void initialiseTile() = 0;
 

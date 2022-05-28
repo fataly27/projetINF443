@@ -135,6 +135,7 @@ TextureTile::TextureTile(int type) : Tile()
 	}
 
 	quadrangle_mesh.position = { {0.5f,-0.5f,0}, { -0.5f,-0.5f,0}, { -0.5f, 0.5f,0}, {0.5f, 0.5f,0} };
+	quadrangle_mesh.position *= 50;
 	quadrangle_mesh.connectivity = { {0,1,2}, {0,2,3} };
 
 	switch (dir)
