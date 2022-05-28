@@ -8,6 +8,8 @@
 
 using namespace cgp;
 
+BoidTile BT(0);
+
 void scene_structure::initialize()
 {
 	// Specific Shader (*)
@@ -63,7 +65,7 @@ void scene_structure::initialize()
 	{
 		for (int j = 0; j < NCases; j++)
 		{
-			Cases[i * NCases + j] = new Case(cgp::vec3(i, j, 0));
+			Cases[i * NCases + j] = new Case(cgp::vec3(10*i, 10*j, 0));
 
 			if (j != 0)
 			{
@@ -112,11 +114,14 @@ void scene_structure::initialize()
 		}
 		std::cout << std::endl;
 	}
+
+	BT.initialiseTile();
+
 }
 
 void scene_structure::display()
 {
-	timer.update();
+	float dt = timer.update();
 	float t = timer.t;
 
 	// Update the position and color of the lights
@@ -125,9 +130,13 @@ void scene_structure::display()
 	// The standard frame
 	if (gui.display_frame)
 		draw(global_frame, environment);
+	
+	//for (int i = 0; i < NCases * NCases; i++)
+	//	Cases[i]->drawCase(environment);
+	
+	BT.updateTile(dt);
+	BT.drawTile({0,10,0}, environment);
 
-	for (int i = 0; i < NCases * NCases; i++)
-		Cases[i]->drawCase(environment);
 
 	// Display the elements of the scene
 	//draw(cube, environment);

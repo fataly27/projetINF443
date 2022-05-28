@@ -34,10 +34,11 @@ struct scene_structure {
 
 	light_shape_drawable light_drawable; // Helper structure used to display the lights as spheres (*)
 
-	cgp::timer_basic timer; // A basic timer for the animation of the lights
 	gui_parameters gui;     // The standard GUI element storage
 	
 	std::array<Case*, NCases * NCases> Cases;
+
+	cgp::timer_event_periodic timer;
 	
 	// ****************************** //
 	// Functions

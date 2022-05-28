@@ -1,8 +1,8 @@
-#include "Boid.h"
+#include "Boid.hpp"
 
 //variables to set
-float Boid::factors[5] = { 10, 0.1, 0.1, 1, 1 };
-float Boid::proximity[3] = { 1, 1.3, 1.5 };
+float Boid::factors[6] = { 10, 0.1, 0.1, 1, 1, 1 };
+float Boid::proximity[3] = { 2, 1.5, 2 };
 float Boid::v = 2;
 
 
@@ -112,27 +112,27 @@ cgp::vec3 Boid::avoidWalls()
 
 	if (position.x < walls[0] + detDist) {
 		float dist = (position.x - walls[0]);
-		if (dist != 0) res.x = 1 / dist;
+		if (dist != 0) res.x = 1 / dist - 1/detDist;
 	}
 	if (position.x > walls[1] - detDist) {
 		float dist = (walls[1] - position.x);
-		if (dist != 0) res.x = -1 / dist;
+		if (dist != 0) res.x = -1 / dist + 1 / detDist;
 	}
 	if (position.y < walls[2] + detDist) {
 		float dist = (position.y - walls[2]);
-		if (dist != 0) res.y = 1 / dist;
+		if (dist != 0) res.y = 1 / dist - 1 / detDist;
 	}
 	if (position.y > walls[3] - detDist) {
 		float dist = (walls[3] - position.y);
-		if (dist != 0) res.y = -1 / dist;
+		if (dist != 0) res.y = -1 / dist + 1 / detDist;
 	}
 	if (position.z < walls[4] + detDist) {
 		float dist = (position.z - walls[4]);
-		if (dist != 0) res.z = 1 / dist;
+		if (dist != 0) res.z = 1 / dist - 1 / detDist;
 	}
 	if (position.z > walls[5] - detDist) {
 		float dist = (walls[5] - position.z);
-		if (dist != 0) res.z = -1 / dist;
+		if (dist != 0) res.z = -1 / dist + 1 / detDist;
 	}
 	return res;
 }
@@ -192,13 +192,27 @@ cgp::vec3 Boid::alignWithOthers() {
 	return v;
 }
 
+cgp::vec3 Boid::flyRandom()
+{
+	float x = rand() % 100;
+	float y = rand() % 100;
+	float z = rand() % 100;
+
+	x = x/100 -0.5;
+	y = y/100 -0.5;
+	z = z/100 -0.5;
+
+	return cgp::vec3({x,y,z});
+}
+
 void Boid::applyForces()
 {
 	velocity = velocity * factors[0] 
 		+ avoidWalls() * factors[1] 
 		+ avoidOthers() * factors[2] 
 		+ alignWithOthers() * factors[3]
-		+ flyTowardOthers() * factors[4];
+		+ flyTowardOthers() * factors[4]
+		+ flyRandom() * factors[5];
 	/*
 	if (len(velocity) < vMin) {
 		velocity *= vMin / len(velocity);
@@ -229,7 +243,7 @@ void Boid::initialize()
 	body.shading.color = { 0.5f,0.5f,1.0f };
 }
 
-void Boid::drawBoid(cgp::scene_environment_basic_camera_spherical_coords environment)
+void Boid::drawBoid(scene_environment_with_multiple_lights environment, cgp::vec3 offset)
 {
 
 	if (debug) {
@@ -238,7 +252,7 @@ void Boid::drawBoid(cgp::scene_environment_basic_camera_spherical_coords environ
 		body.shading.color = { 1,0,0 };
 	}
 
-	body.transform.translation = position;
+	body.transform.translation = position + offset;
 	cgp::vec3 v = velocity;
 	float lenV = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	v /= lenV;
