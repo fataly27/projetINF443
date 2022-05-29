@@ -14,3 +14,8 @@ void Tile::updateTile(float)
 {
 	return;
 }
+
+int Tile::getProximity(int dir)
+{
+	return Aretes[dir];
+}

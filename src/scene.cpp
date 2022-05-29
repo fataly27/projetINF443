@@ -8,8 +8,6 @@
 
 using namespace cgp;
 
-BoidTile BT(0);
-FountainTile FT(0);
 
 void scene_structure::initialize()
 {
@@ -116,9 +114,9 @@ void scene_structure::initialize()
 		std::cout << std::endl;
 	}
 
-	BT.initialiseTile();
-	FT.initialiseTile();
-
+	Car Ct(Cases[1]);
+	C = Ct;
+	C.initializeCar();
 }
 
 void scene_structure::display()
@@ -133,14 +131,15 @@ void scene_structure::display()
 	if (gui.display_frame)
 		draw(global_frame, environment);
 	
-	//for (int i = 0; i < NCases * NCases; i++)
-	//	Cases[i]->drawCase(environment);
-	
-	BT.updateTile(dt);
-	BT.drawTile({0,10,0}, environment);
+	Cases[0]->updateCase(dt);
 
-	FT.updateTile(dt);
-	FT.drawTile({ 0,0,0 }, environment);
+	for (int i = 0; i < NCases * NCases; i++) {
+		Cases[i]->drawCase(environment);
+	}
+	
+
+	C.updateCar(dt);
+	C.drawCar(environment);
 
 
 

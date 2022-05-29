@@ -11,14 +11,14 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 0;
 			Aretes[Down] = 0;
 			Aretes[Left] = 0;
-			texture_file = "imgs/texture0.png";
+			texture_file = "imgs/0000.png";
 			break;
 		case 1:
 			Aretes[Up] = 0;
 			Aretes[Right] = 0;
 			Aretes[Down] = 1;
 			Aretes[Left] = 1;
-			texture_file = "imgs/texture1.png";
+			texture_file = "imgs/0011.png";
 			dir = Left;
 			break;
 		case 2:
@@ -26,7 +26,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 0;
 			Aretes[Down] = 0;
 			Aretes[Left] = 1;
-			texture_file = "imgs/texture1.png";
+			texture_file = "imgs/0011.png";
 			dir = Up;
 			break;
 		case 3:
@@ -34,7 +34,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 1;
 			Aretes[Down] = 0;
 			Aretes[Left] = 0;
-			texture_file = "imgs/texture1.png";
+			texture_file = "imgs/0011.png";
 			dir = Right;
 			break;
 		case 4:
@@ -42,7 +42,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 1;
 			Aretes[Down] = 1;
 			Aretes[Left] = 0;
-			texture_file = "imgs/texture1.png";
+			texture_file = "imgs/0011.png";
 			dir = Down;
 			break;
 		case 5:
@@ -50,7 +50,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 1;
 			Aretes[Down] = 0;
 			Aretes[Left] = 1;
-			texture_file = "imgs/texture2.png";
+			texture_file = "imgs/0101.png";
 			dir = Left;
 			break;
 		case 6:
@@ -58,7 +58,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 0;
 			Aretes[Down] = 1;
 			Aretes[Left] = 0;
-			texture_file = "imgs/texture2.png";
+			texture_file = "imgs/0101.png";
 			dir = Down;
 			break;
 		case 7:
@@ -66,7 +66,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 1;
 			Aretes[Down] = 1;
 			Aretes[Left] = 1;
-			texture_file = "imgs/texture3.png";
+			texture_file = "imgs/0111.png";
 			dir = Left;
 			break;
 		case 8:
@@ -74,7 +74,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 0;
 			Aretes[Down] = 1;
 			Aretes[Left] = 1;
-			texture_file = "imgs/texture3.png";
+			texture_file = "imgs/0111.png";
 			dir = Up;
 			break;
 		case 9:
@@ -82,7 +82,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 1;
 			Aretes[Down] = 0;
 			Aretes[Left] = 1;
-			texture_file = "imgs/texture3.png";
+			texture_file = "imgs/0111.png";
 			dir = Right;
 			break;
 		case 10:
@@ -90,7 +90,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 1;
 			Aretes[Down] = 1;
 			Aretes[Left] = 0;
-			texture_file = "imgs/texture3.png";
+			texture_file = "imgs/0111.png";
 			dir = Down;
 			break;
 		case 11:
@@ -98,7 +98,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Down] = 0;
 			Aretes[Left] = 0;
 			Aretes[Right] = 0;
-			texture_file = "imgs/texture4.png";
+			texture_file = "imgs/1000.png";
 			dir = Left;
 			break;
 		case 12:
@@ -106,7 +106,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 1;
 			Aretes[Down] = 0;
 			Aretes[Left] = 0;
-			texture_file = "imgs/texture4.png";
+			texture_file = "imgs/1000.png";
 			dir = Up;
 			break;
 		case 13:
@@ -114,7 +114,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 0;
 			Aretes[Down] = 1;
 			Aretes[Left] = 0;
-			texture_file = "imgs/texture4.png";
+			texture_file = "imgs/1000.png";
 			dir = Right;
 			break;
 		case 14:
@@ -122,7 +122,7 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Right] = 0;
 			Aretes[Down] = 0;
 			Aretes[Left] = 1;
-			texture_file = "imgs/texture4.png";
+			texture_file = "imgs/1000.png";
 			dir = Down;
 			break;
 		case 15:
@@ -130,12 +130,12 @@ TextureTile::TextureTile(int type) : Tile()
 			Aretes[Down] = 1;
 			Aretes[Left] = 1;
 			Aretes[Right] = 1;
-			texture_file = "imgs/texture5.png";
+			texture_file = "imgs/1111.png";
 			break;
 	}
 
 	quadrangle_mesh.position = { {0.5f,-0.5f,0}, { -0.5f,-0.5f,0}, { -0.5f, 0.5f,0}, {0.5f, 0.5f,0} };
-	quadrangle_mesh.position *= 50;
+	quadrangle_mesh.position *= 10;
 	quadrangle_mesh.connectivity = { {0,1,2}, {0,2,3} };
 
 	switch (dir)

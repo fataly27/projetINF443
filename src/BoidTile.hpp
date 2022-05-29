@@ -6,7 +6,7 @@
 #include "cgp/cgp.hpp"
 #include "multiple_lights/multiple_lights.hpp"
 
-#define NBoids 100
+#define NBoids 200
 
 class BoidTile : public Tile
 { 
