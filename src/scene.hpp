@@ -40,6 +40,9 @@ struct scene_structure {
 
 	cgp::timer_event_periodic timer;
 	
+	BoidTile BT;
+	FountainTile FT;
+	
 	// ****************************** //
 	// Functions
 	// ****************************** //

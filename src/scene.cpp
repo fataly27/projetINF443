@@ -8,9 +8,6 @@
 
 using namespace cgp;
 
-BoidTile BT(0);
-FountainTile FT(0);
-
 void scene_structure::initialize()
 {
 	// Specific Shader (*)
@@ -115,6 +112,9 @@ void scene_structure::initialize()
 		}
 		std::cout << std::endl;
 	}
+	
+	BT = BoidTile(0);
+	FT = FountainTile(0);
 
 	BT.initialiseTile();
 	FT.initialiseTile();
@@ -141,7 +141,6 @@ void scene_structure::display()
 
 	FT.updateTile(dt);
 	FT.drawTile({ 0,0,0 }, environment);
-
 
 
 	// Display the elements of the scene

@@ -10,13 +10,14 @@
 
 class BoidTile : public Tile
 { 
-private:
-	Boid B[NBoids];
-	cgp::mesh mesh_green;
-	cgp::mesh_drawable shape_green;
-public:
-	BoidTile(int);
-	virtual void drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment) override;
-	virtual void initialiseTile() override;
-	virtual void updateTile(float) override;
+	private:
+		Boid B[NBoids];
+		cgp::mesh mesh_green;
+		cgp::mesh_drawable shape_green;
+		
+	public:
+		BoidTile(int);
+		virtual void drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment) override;
+		virtual void initialiseTile() override;
+		virtual void updateTile(float dt) override;
 };
