@@ -1,10 +1,10 @@
 #include "Boid.hpp"
 
 //variables to set
-float Boid::factors[6] = { 10, 0.1, 0.1, 1, 1, 1 };
-float Boid::proximity[3] = { 2, 1.5, 2 };
+float Boid::factors[6] = { 10, 1, 1, 1, 1, 1 };
+float Boid::proximity[3] = { 0.3, 0.5, 0.7 };
 float Boid::v = 2;
-
+  
 
 float len(cgp::vec3 v) {
 	return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
@@ -106,7 +106,7 @@ void Boid::bounceWalls()
 
 cgp::vec3 Boid::avoidWalls()
 {
-	float detDist = 1.5;
+	float detDist = 3;
 
 	cgp::vec3 res = { 0,0,0 };
 

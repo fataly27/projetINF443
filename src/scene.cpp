@@ -8,6 +8,7 @@
 
 using namespace cgp;
 
+
 void scene_structure::initialize()
 {
 	// Specific Shader (*)
@@ -116,9 +117,9 @@ void scene_structure::initialize()
 	BT = BoidTile(0);
 	FT = FountainTile(0);
 
-	BT.initialiseTile();
-	FT.initialiseTile();
-
+	Car Ct(Cases[1]);
+	C = Ct;
+	C.initializeCar();
 }
 
 void scene_structure::display()
@@ -133,14 +134,15 @@ void scene_structure::display()
 	if (gui.display_frame)
 		draw(global_frame, environment);
 	
-	//for (int i = 0; i < NCases * NCases; i++)
-	//	Cases[i]->drawCase(environment);
-	
-	BT.updateTile(dt);
-	BT.drawTile({0,10,0}, environment);
+	Cases[0]->updateCase(dt);
 
-	FT.updateTile(dt);
-	FT.drawTile({ 0,0,0 }, environment);
+	for (int i = 0; i < NCases * NCases; i++) {
+		Cases[i]->drawCase(environment);
+	}
+	
+
+	C.updateCar(dt);
+	C.drawCar(environment);
 
 
 	// Display the elements of the scene

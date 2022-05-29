@@ -18,8 +18,8 @@ struct particle_structure
 class FountainTile : public Tile
 {
 public:
-	float sphere_radius = 0.05f;
-	float waitNewSphere = 0.01f;
+	float const sphere_radius = 0.05f;
+	float const waitNewSphere = 0.01f;
 	const cgp::vec3 g = { 0.0f,0.0f,-9.81f };
 	const float m = 0.01f;
 

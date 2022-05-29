@@ -8,8 +8,9 @@
 #include "multiple_lights/multiple_lights.hpp"
 #include "terrain.hpp"
 #include "case.hpp"
+#include "Car.hpp"
 
-#define NCases 30
+#define NCases 10
 
 
 // The element of the GUI that are not already stored in other structures
@@ -39,6 +40,8 @@ struct scene_structure {
 	std::array<Case*, NCases * NCases> Cases;
 
 	cgp::timer_event_periodic timer;
+
+	Car C;
 	
 	BoidTile BT;
 	FountainTile FT;

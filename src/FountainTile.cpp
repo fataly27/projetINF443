@@ -40,7 +40,7 @@ void FountainTile::initialiseTile()
 {
 
 	sphere.initialize(cgp::mesh_primitive_sphere(sphere_radius), "sphere");
-	sphere.shading.color = { 0.5f,0.5f,1.0f };
+	sphere.shading.color = { 0,0,1.0f };
 
 	shape_black.initialize(mesh_black, "Shape_black");
 	shape_blue.initialize(mesh_blue, "Shape_blue");

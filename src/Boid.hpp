@@ -6,7 +6,7 @@
 class Boid
 {
 public :
-	static constexpr int max = 100;
+	static constexpr int max = 200;
 
 	bool debug = false;
 	cgp::vec3 debugCenter;

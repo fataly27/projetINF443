@@ -25,5 +25,6 @@ class Tile
 		virtual void drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment) = 0;
 		virtual void initialiseTile() = 0;
 
+		int getProximity(int dir);
 
 };

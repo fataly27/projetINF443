@@ -4,12 +4,22 @@
 #include "FountainTile.hpp"
 #include <cstdlib>
 
-std::array<Tile*, N> Case::Tiles = { new TextureTile(0), new TextureTile(1), new TextureTile(2), new TextureTile(3), new TextureTile(4), new TextureTile(5), new TextureTile(6), new TextureTile(7), new TextureTile(8), new TextureTile(9), new TextureTile(10), new TextureTile(11), new TextureTile(12), new TextureTile(13), new TextureTile(14), new TextureTile(15) };
+std::array<Tile*, N> Case::Tiles = { new TextureTile(0), new TextureTile(1), new TextureTile(2), new TextureTile(3), new TextureTile(4), new TextureTile(5), new TextureTile(6), new TextureTile(7), new TextureTile(8), new TextureTile(9), new TextureTile(10), new TextureTile(11), new TextureTile(12), new TextureTile(13), new TextureTile(14), new TextureTile(15) , new BoidTile(0), new FountainTile(0)};
 
 void Case::initialiseTiles()
 {
 	for (int i = 0; i < N; i++)
 		Tiles[i]->initialiseTile();
+}
+
+cgp::vec3 Case::getPosition()
+{
+	return Position;
+}
+
+std::array<Case*, 4> Case::getNeighbors()
+{
+	return Neighbors;
 }
 
 void Case::fixTile()
@@ -64,6 +74,11 @@ int Case::getNbDispos()
 	return nbDispos;
 }
 
+int Case::getFixedTile()
+{
+	return FixedTile;
+}
+
 void Case::update()
 {
 	bool changed = false;
@@ -103,6 +118,12 @@ void Case::update()
 		if (Neighbors[Left] != nullptr)
 			Neighbors[Left]->update();
 	}
+}
+
+void Case::updateCase(float dt)
+{
+	for (int i = 0; i < N; i++)
+		Tiles[i]->updateTile(dt);
 }
 
 bool Case::isNeighborCase(Tile* tile, int dir)
