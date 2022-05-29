@@ -114,8 +114,8 @@ void scene_structure::initialize()
 		std::cout << std::endl;
 	}
 	
-	BT = BoidTile(0);
-	FT = FountainTile(0);
+	BT = new BoidTile(0);
+	FT = new FountainTile(0);
 
 	Car Ct(Cases[1]);
 	C = Ct;

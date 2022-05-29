@@ -1,6 +1,6 @@
 #include "FountainTile.hpp"
 
-FountainTile::FountainTile(int) : Tile()
+FountainTile::FountainTile(int index) : Tile()
 {
 	Aretes[Up] = 1;
 	Aretes[Down] = 1;

@@ -9,6 +9,8 @@
 #include "terrain.hpp"
 #include "case.hpp"
 #include "Car.hpp"
+#include "BoidTile.hpp"
+#include "FountainTile.hpp"
 
 #define NCases 10
 
@@ -43,8 +45,8 @@ struct scene_structure {
 
 	Car C;
 	
-	BoidTile BT;
-	FountainTile FT;
+	BoidTile* BT;
+	FountainTile* FT;
 	
 	// ****************************** //
 	// Functions

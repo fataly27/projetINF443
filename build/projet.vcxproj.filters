@@ -250,6 +250,27 @@
     <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\cgp\library\third_party\src\simplexnoise\simplexnoise1234.cpp">
       <Filter>third_party\src\simplexnoise</Filter>
     </ClCompile>
+    <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\2dtile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\3dtile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\Boid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\BoidTile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\Car.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\FountainTile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\case.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -259,16 +280,10 @@
     <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\scene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\terrain.cpp">
+    <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\terrain.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\tile.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\case.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\2dtile.cpp">
+    <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\tile.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -636,22 +651,37 @@
     <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\cgp\library\third_party\src\simplexnoise\simplexnoise1234.hpp">
       <Filter>third_party\src\simplexnoise</Filter>
     </ClInclude>
+    <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\2dtile.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\3dtile.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\Boid.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\BoidTile.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\Car.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\FountainTile.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\case.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\multiple_lights\multiple_lights.hpp">
       <Filter>src\multiple_lights</Filter>
     </ClInclude>
     <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\scene.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\terrain.hpp">
+    <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\terrain.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\tile.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\case.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\2dtile.hpp">
+    <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\tile.hpp">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
