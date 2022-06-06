@@ -18,7 +18,7 @@ FountainTile::FountainTile(int index) : Tile()
 
 }
 
-void FountainTile::drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment)
+void FountainTile::drawTile(cgp::vec3 position, project_scene_environment environment)
 {
 	shape_black.transform.translation = position;
 	shape_blue.transform.translation = position;

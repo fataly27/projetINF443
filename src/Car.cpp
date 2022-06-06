@@ -58,7 +58,7 @@ int Car::nextTile()
 
 
 
-void Car::drawCar(scene_environment_with_multiple_lights environment)
+void Car::drawCar(project_scene_environment environment)
 {
 	shape_car.transform.rotation = cgp::rotation_transform::between_vector({ 0,1,0 }, v);
 	shape_tires.transform.rotation = cgp::rotation_transform::between_vector({ 0,1,0 }, v);

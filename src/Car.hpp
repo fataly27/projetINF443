@@ -1,6 +1,7 @@
 #pragma once
 
 #include "case.hpp"
+#include "ProjectEnvironment.hpp"
 
 class Car
 {
@@ -29,6 +30,6 @@ public:
 	Car(Case*);
 	void initializeCar();
 	void updateCar(float);
-	void drawCar(scene_environment_with_multiple_lights);
+	void drawCar(project_scene_environment environment);
 
 };

@@ -5,12 +5,13 @@
 
 #include <array>
 #include "cgp/cgp.hpp"
-#include "multiple_lights/multiple_lights.hpp"
+#include "ProjectEnvironment.hpp"
 #include "terrain.hpp"
 #include "case.hpp"
 #include "Car.hpp"
 #include "BoidTile.hpp"
 #include "FountainTile.hpp"
+#include "LakeTile.hpp"
 
 #define NCases 10
 
@@ -28,14 +29,10 @@ struct scene_structure {
 	// Elements and shapes of the scene
 	// ****************************** //
 
-	scene_environment_with_multiple_lights environment; // The specific scene environment with multiple lights (*)
+	project_scene_environment environment; // The specific scene environment
 	
 	cgp::mesh_drawable global_frame;    // The standard global frame
-	cgp::mesh_drawable cube;            // A cube displayed in the center of the scene
-	cgp::mesh_drawable ground;          // The ground
-	cgp::mesh_drawable ocean;          // The ocean
-
-	light_shape_drawable light_drawable; // Helper structure used to display the lights as spheres (*)
+	cgp::skybox_drawable skybox;	// The sky box
 
 	gui_parameters gui;     // The standard GUI element storage
 	
@@ -47,6 +44,7 @@ struct scene_structure {
 	
 	BoidTile* BT;
 	FountainTile* FT;
+	LakeTile* TestLakeTile;
 	
 	// ****************************** //
 	// Functions

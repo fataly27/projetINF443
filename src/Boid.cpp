@@ -65,22 +65,22 @@ cgp::vec3 Boid::getPosition()
 void Boid::bounceWalls()
 {
 	if (position.x < walls[0]) {
-		velocity.x = abs(velocity.x);
+		velocity.x = std::abs(velocity.x);
 	}
 	if (position.x > walls[1]) {
-		velocity.x = -abs(velocity.x);
+		velocity.x = -std::abs(velocity.x);
 	}
 	if (position.y < walls[2]) {
-		velocity.y = abs(velocity.y);
+		velocity.y = std::abs(velocity.y);
 	}
 	if (position.y > walls[3]) {
-		velocity.y = -abs(velocity.y);
+		velocity.y = -std::abs(velocity.y);
 	}
 	if (position.z < walls[4]) {
-		velocity.z = abs(velocity.z);
+		velocity.z = std::abs(velocity.z);
 	}
 	if (position.z > walls[5]) {
-		velocity.z = -abs(velocity.z);
+		velocity.z = -std::abs(velocity.z);
 	}
 
 
@@ -243,7 +243,7 @@ void Boid::initialize()
 	body.shading.color = { 0.5f,0.5f,1.0f };
 }
 
-void Boid::drawBoid(scene_environment_with_multiple_lights environment, cgp::vec3 offset)
+void Boid::drawBoid(project_scene_environment environment, cgp::vec3 offset)
 {
 
 	if (debug) {

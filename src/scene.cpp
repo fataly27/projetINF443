@@ -15,8 +15,12 @@ void scene_structure::initialize()
 	// ***************************************** //
 	// Load a new custom shader that take into account spotlights (note the new shader file in shader/ directory)
 	// Make sure you load an set this shader for the shapes that need to be illuminated
-	//GLuint const shader_lights = opengl_load_shader("shaders/mesh_lights/vert.glsl", "shaders/mesh_lights/frag.glsl");                 
-	//mesh_drawable::default_shader = shader_lights;   // set this shader as the default one for all new shapes declared after this line 
+	GLuint const shader_lights = opengl_load_shader("shaders/project/vert.glsl", "shaders/project/frag.glsl");                 
+	mesh_drawable::default_shader = shader_lights;   // set this shader as the default one for all new shapes declared after this line 
+
+	// Initialize the skybox (*)
+	// ***************************************** //
+	skybox.initialize("assets/skybox/");         // indicate a path where to load the 6 texture images
 
 
 	// Create the surrounding shapes
@@ -24,33 +28,11 @@ void scene_structure::initialize()
 	// The standard frame
 	global_frame.initialize(mesh_primitive_frame(), "Frame");
 
-	/*
-	// A central cube
-	cube.initialize(mesh_primitive_cube(), "Cube");
-	cube.transform.translation = { -2,0,0.5f };
-	cube.transform.rotation = rotation_transform::from_axis_angle({ 0,0,1 }, Pi / 4.0f);
-
-	// The ground
-	int N_terrain_samples = 500;
-	float terrain_length = 60;
-	mesh const terrain_mesh = create_terrain_mesh(N_terrain_samples, terrain_length);
-	ground.initialize(terrain_mesh, "terrain");
-	ground.shading.color = { 0.75f,0.35f,0.7f };
-	ground.shading.phong.specular = 0.0f; // non-specular terrain material
-
-	// The ocean
-	ocean.initialize(mesh_primitive_quadrangle({ -30,-30,0 }, { -30,30,0 }, { 30,30,0 }, { 30,-30,0 }), "Quad");
-	ocean.shading.color = { 0.1f,0.02f,0.9f };
-
-	// The lights displayed as spheres using this helper initializer (*)-optionnal
-	light_drawable.initialize(shader_lights);
-	*/
-
 	// Environment parameters
 	// ***************************************** //
 
 	// The background color is set to match the color of the fog defined in the shader (*)
-	environment.background_color = { 0.7f, 0.7f, 0.7f }; 
+	environment.background_color = { 0.75f, 0.82f, 0.9f };
 
 
 	// Initialize the camera
@@ -116,14 +98,19 @@ void scene_structure::initialize()
 	
 	BT = new BoidTile(0);
 	FT = new FountainTile(0);
+	TestLakeTile = new LakeTile(0, Up);
 
-	Car Ct(Cases[1]);
+	TestLakeTile->initialiseTile();
+
+	/*Car Ct(Cases[1]);
 	C = Ct;
-	C.initializeCar();
+	C.initializeCar();*/
 }
 
 void scene_structure::display()
 {
+	draw(skybox, environment);
+
 	float dt = timer.update();
 	float t = timer.t;
 
@@ -133,29 +120,37 @@ void scene_structure::display()
 	// The standard frame
 	if (gui.display_frame)
 		draw(global_frame, environment);
+
+	TestLakeTile->updateTile(dt);
+	TestLakeTile->drawTile(vec3(-10, -10, 0), environment);
 	
 	Cases[0]->updateCase(dt);
 
-	for (int i = 0; i < NCases * NCases; i++) {
+	for (int i = 0; i < NCases * NCases; i++)
 		Cases[i]->drawCase(environment);
-	}
+
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glDepthMask(false);
+
+	for (int i = 0; i < NCases * NCases; i++)
+		Cases[i]->drawCaseTransparent(environment);
+
+	TestLakeTile->drawTileTransparent(vec3(-10, -10, 0), environment);
+
+	// Don't forget to re-activate the depth-buffer write
+	glDepthMask(true);
+	glDisable(GL_BLEND);
 	
 
-	C.updateCar(dt);
-	C.drawCar(environment);
-
-
-	// Display the elements of the scene
-	//draw(cube, environment);
-	//draw(ground, environment);
-	//draw(ocean, environment);
-	//draw(light_drawable, environment); // this is a helper function from multiple_lights (display all the spotlights as spheres) (*)-optionnal
+	/*C.updateCar(dt);
+	C.drawCar(environment);*/
 }
 
 void scene_structure::display_gui()
 {
 	ImGui::Checkbox("Frame", &gui.display_frame);
-	display_gui_falloff(environment); // helper function from multiple_lights (*)-optionnal
+	ImGui::SliderFloat("Fog falloff", &environment.fog_falloff, 0, 0.05f, "%0.5f", 2.0f);
 }
-
-

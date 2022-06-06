@@ -3,7 +3,7 @@
 #include <array>
 #include "tile.hpp"
 #include "cgp/cgp.hpp"
-#include "multiple_lights/multiple_lights.hpp"
+#include "ProjectEnvironment.hpp"
 
 #define N 18
 
@@ -27,7 +27,8 @@ class Case
 		void fixTile();
 		void update();
 		void updateCase(float);
-		void drawCase(scene_environment_with_multiple_lights environment);
+		void drawCase(project_scene_environment environment);
+		void drawCaseTransparent(project_scene_environment environment);
 		bool isNeighborCase(Tile* tile, int dir);
 
 		bool isCaseFixed();

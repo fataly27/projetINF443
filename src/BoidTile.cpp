@@ -30,7 +30,7 @@ BoidTile::BoidTile(int) : Tile()
 	}
 }
 
-void BoidTile::drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment)
+void BoidTile::drawTile(cgp::vec3 position, project_scene_environment environment)
 {
 	shape_green.transform.translation = position;
 	cgp::draw(shape_green, environment);

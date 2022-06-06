@@ -253,9 +253,6 @@
     <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\2dtile.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\3dtile.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\Boid.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -284,6 +281,21 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="D:\Documents\Ecole\X-2A\INF443\projet\src\tile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\LakeTile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TreeTile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ForestTile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ForestRoadTile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ProjectEnvironment.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -654,9 +666,6 @@
     <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\2dtile.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\3dtile.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\Boid.hpp">
       <Filter>src</Filter>
     </ClInclude>
@@ -684,17 +693,26 @@
     <ClInclude Include="D:\Documents\Ecole\X-2A\INF443\projet\src\tile.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\LakeTile.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TreeTile.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ForestTile.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ForestRoadTile.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ProjectEnvironment.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\Documents\Ecole\X-2A\INF443\projet\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="D:\Documents\Ecole\X-2A\INF443\projet\shaders\mesh\frag.glsl">
-      <Filter>shaders\mesh</Filter>
-    </None>
-    <None Include="D:\Documents\Ecole\X-2A\INF443\projet\shaders\mesh\vert.glsl">
-      <Filter>shaders\mesh</Filter>
-    </None>
     <None Include="D:\Documents\Ecole\X-2A\INF443\projet\shaders\mesh_lights\frag.glsl">
       <Filter>shaders\mesh_lights</Filter>
     </None>
@@ -706,6 +724,24 @@
     </None>
     <None Include="D:\Documents\Ecole\X-2A\INF443\projet\shaders\single_color\vert.glsl">
       <Filter>shaders\single_color</Filter>
+    </None>
+    <None Include="D:\Documents\Ecole\X-2A\INF443\projet\shaders\mesh\vert.glsl">
+      <Filter>shaders\mesh</Filter>
+    </None>
+    <None Include="D:\Documents\Ecole\X-2A\INF443\projet\shaders\mesh\frag.glsl">
+      <Filter>shaders\mesh</Filter>
+    </None>
+    <None Include="..\shaders\project\frag.glsl">
+      <Filter>shaders\project</Filter>
+    </None>
+    <None Include="..\shaders\project\vert.glsl">
+      <Filter>shaders\project</Filter>
+    </None>
+    <None Include="..\shaders\project_billboards\frag.glsl">
+      <Filter>shaders\project_billboards</Filter>
+    </None>
+    <None Include="..\shaders\project_billboards\vert.glsl">
+      <Filter>shaders\project_billboards</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1071,6 +1107,12 @@
     </Filter>
     <Filter Include="third_party\src\simplexnoise">
       <UniqueIdentifier>{C614932C-F183-3A02-AECC-C7F3028761F2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\project">
+      <UniqueIdentifier>{824e95b9-e168-42b4-8b00-70710ba3813e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\project_billboards">
+      <UniqueIdentifier>{3d4e33af-f895-43ca-abcf-dd898022e492}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

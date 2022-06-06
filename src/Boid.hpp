@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cgp/cgp.hpp"
-#include "multiple_lights/multiple_lights.hpp"
+#include "ProjectEnvironment.hpp"
 
 class Boid
 {
@@ -53,5 +53,5 @@ public:
 	void applyForces();
 	void update(float dt);
 	void initialize();
-	void drawBoid(scene_environment_with_multiple_lights, cgp::vec3 offset = { 0,0,0 });
+	void drawBoid(project_scene_environment environment, cgp::vec3 offset = { 0,0,0 });
 };

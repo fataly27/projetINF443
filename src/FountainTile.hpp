@@ -4,7 +4,7 @@
 #include <string>
 #include <list>
 #include "cgp/cgp.hpp"
-#include "multiple_lights/multiple_lights.hpp"
+#include "ProjectEnvironment.hpp"
 
 
 
@@ -40,7 +40,7 @@ class FountainTile : public Tile
 
 	public:
 		FountainTile(int index);
-		virtual void drawTile(cgp::vec3 position, scene_environment_with_multiple_lights environment) override;
+		virtual void drawTile(cgp::vec3 position, project_scene_environment environment) override;
 		virtual void initialiseTile() override;
 		virtual void updateTile(float dt) override;
 };
