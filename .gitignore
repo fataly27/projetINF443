@@ -35,8 +35,6 @@ bld/
 *.exe
 projectINF443.exe
 project.exe
-CMakeLists.txt
-CMakeSettings.json
 project.pdb
 
 build/
