@@ -102,9 +102,13 @@ void scene_structure::initialize()
 
 	TestLakeTile->initialiseTile();
 
-	/*Car Ct(Cases[1]);
-	C = Ct;
-	C.initializeCar();*/
+	Car Ct(Cases[1]);
+
+	P = Player();
+	P.initializePlayer();
+
+	H = House();
+	H.initializeHouse();
 }
 
 void scene_structure::display()
@@ -124,6 +128,13 @@ void scene_structure::display()
 	TestLakeTile->updateTile(dt);
 	TestLakeTile->drawTile(vec3(-10, -10, 0), environment);
 	
+	P.update(sceneInputs, dt);
+
+	//P.moveCamera(environment);
+	P.drawPlayer(environment);
+
+	H.drawHouse(environment, { 10,10,0 }, { 0,0,0 });
+	
 	Cases[0]->updateCase(dt);
 
 	for (int i = 0; i < NCases * NCases; i++)
@@ -134,7 +145,7 @@ void scene_structure::display()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glDepthMask(false);
-
+	
 	for (int i = 0; i < NCases * NCases; i++)
 		Cases[i]->drawCaseTransparent(environment);
 
@@ -143,14 +154,12 @@ void scene_structure::display()
 	// Don't forget to re-activate the depth-buffer write
 	glDepthMask(true);
 	glDisable(GL_BLEND);
-	
-
-	/*C.updateCar(dt);
-	C.drawCar(environment);*/
 }
 
 void scene_structure::display_gui()
 {
 	ImGui::Checkbox("Frame", &gui.display_frame);
+
 	ImGui::SliderFloat("Fog falloff", &environment.fog_falloff, 0, 0.05f, "%0.5f", 2.0f);
+	ImGui::SliderFloat("Speed", &Player::maxSpeed, 0, 10);
 }

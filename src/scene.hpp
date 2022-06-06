@@ -12,6 +12,8 @@
 #include "BoidTile.hpp"
 #include "FountainTile.hpp"
 #include "LakeTile.hpp"
+#include "Player.hpp"
+#include "building.hpp"
 
 #define NCases 10
 
@@ -39,8 +41,11 @@ struct scene_structure {
 	std::array<Case*, NCases * NCases> Cases;
 
 	cgp::timer_event_periodic timer;
+	cgp::inputs_interaction_parameters sceneInputs;
 
+	House H;
 	Car C;
+	Player P;
 	
 	BoidTile* BT;
 	FountainTile* FT;

@@ -6,6 +6,13 @@ float Boid::proximity[3] = { 0.3, 0.5, 0.7 };
 float Boid::v = 2;
   
 
+cgp::mesh body_mesh_in;
+cgp::mesh_drawable body_in;
+
+cgp::mesh* Boid::body_mesh = &body_mesh_in;
+cgp::mesh_drawable* Boid::body = &body_in;
+
+
 float len(cgp::vec3 v) {
 	return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 }
@@ -18,20 +25,12 @@ Boid::Boid(cgp::vec3 position)
 {
 	this->position = position;
 	velocity = { 1,0.1,0.2 };
-	body_mesh.position = { {1, 0, 0}, {0,0.4,-0.3}, {0,-0.4,-0.3}, {0,0,0.3} };
-	body_mesh.position *= 0.1;
-	body_mesh.connectivity = { {0,1,2}, {0,2,3}, {0,3,1}, {1,3,2} };
-	body_mesh.fill_empty_field();
 }
 
 Boid::Boid(int)
 {
 	position = { 0.5,0.5,0.5 };
 	velocity = { 1,0.1,0.2 };
-	body_mesh.position = { {1, 0, 0}, {0,0.4,-0.3}, {0,-0.4,-0.3}, {0,0,0.3} };
-	body_mesh.position *= 0.1;
-	body_mesh.connectivity = { {0,1,2}, {0,2,3}, {0,3,1}, {1,3,2} };
-	body_mesh.fill_empty_field();
 }
 
 void Boid::setWalls(float walls[6])
@@ -60,6 +59,16 @@ void Boid::setOthers(std::array<Boid *, max> others, int nbOthers)
 cgp::vec3 Boid::getPosition()
 {
 	return position;
+}
+
+void Boid::setBodyMesh(cgp::mesh* body_meshIn)
+{
+	body_mesh = body_meshIn;
+}
+
+void Boid::setBody(cgp::mesh_drawable* bodyIn)
+{
+	body = bodyIn;
 }
 
 void Boid::bounceWalls()
@@ -170,9 +179,6 @@ cgp::vec3 Boid::flyTowardOthers()
 		center /= nb;
 		res = center - position;
 	}
-	if (debug) {
-		debugCenter = center;
-	}
 	return res;
 }
 
@@ -235,27 +241,22 @@ void Boid::update(float dt)
 
 void Boid::initialize()
 {
-	float const sphere_radius = 0.05f;
-	debugSphere.initialize(cgp::mesh_primitive_sphere(sphere_radius), "sphere");
-	debugSphere.shading.color = { 1,0,0 };
+	body_mesh->position = { {1, 0, 0}, {0,0.4,-0.3}, {0,-0.4,-0.3}, {0,0,0.3} };
+	body_mesh->position *= 0.1;
+	body_mesh->connectivity = { {0,1,2}, {0,2,3}, {0,3,1}, {1,3,2} };
+	body_mesh->fill_empty_field();
 
-	body.initialize(body_mesh, "Body");
-	body.shading.color = { 0.5f,0.5f,1.0f };
+	body->initialize(*body_mesh, "Body");
+	body->shading.color = { 0.5f,0.5f,1.0f };
+	std::cout << "ok";
 }
 
 void Boid::drawBoid(project_scene_environment environment, cgp::vec3 offset)
 {
-
-	if (debug) {
-		debugSphere.transform.translation = debugCenter;
-		draw(debugSphere, environment);
-		body.shading.color = { 1,0,0 };
-	}
-
-	body.transform.translation = position + offset;
+	body->transform.translation = position + offset;
 	cgp::vec3 v = velocity;
 	float lenV = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	v /= lenV;
-	body.transform.rotation = cgp::rotation_transform::between_vector({1,0,0}, v);
-	cgp::draw(body, environment);
+	body->transform.rotation = cgp::rotation_transform::between_vector({1,0,0}, v);
+	cgp::draw(*body, environment);
 }
