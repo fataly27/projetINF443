@@ -1,6 +1,6 @@
 #pragma once
 #include "cgp/cgp.hpp"
-#include <multiple_lights/multiple_lights.hpp>
+#include "ProjectEnvironment.hpp"
 
 class Player
 {
@@ -13,8 +13,8 @@ public:
 
 	void initializePlayer();
 	void update(cgp::inputs_interaction_parameters inputs, float dt);
-	void drawPlayer(scene_environment_with_multiple_lights environment);
-	void moveCamera(scene_environment_with_multiple_lights& environment);
+	void drawPlayer(project_scene_environment environment);
+	void moveCamera(project_scene_environment& environment);
 
 
 	cgp::vec3 getPos();

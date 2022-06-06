@@ -73,7 +73,7 @@ void Player::update(cgp::inputs_interaction_parameters inputs, float dt)
 }
 
 
-void Player::drawPlayer(scene_environment_with_multiple_lights environment)
+void Player::drawPlayer(project_scene_environment environment)
 {
 	rightIK(footPos[0]);
 	leftIK(footPos[1]);
@@ -111,7 +111,7 @@ void Player::drawPlayer(scene_environment_with_multiple_lights environment)
 	
 }
 
-void Player::moveCamera(scene_environment_with_multiple_lights& environment)
+void Player::moveCamera(project_scene_environment& environment)
 {
 	environment.camera.look_at(pos - 3*dir + cgp::vec3(0,0,1) + cgp::cross(cgp::vec3(0, 0, 1), dir), pos + cgp::cross(cgp::vec3(0, 0, 1), dir), {0,0,1});
 }

@@ -118,7 +118,7 @@ void House::initializeHouse()
 	door.shading.color = { 0.60, 0.40, 0.20 };
 }
 
-void House::drawHouse(scene_environment_with_multiple_lights environment, cgp::vec3 position, cgp::vec3 dir)
+void House::drawHouse(project_scene_environment environment, cgp::vec3 position, cgp::vec3 dir)
 {
 
 	for (int i = 0; i < height; i++) {
