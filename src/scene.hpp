@@ -9,6 +9,8 @@
 #include "terrain.hpp"
 #include "case.hpp"
 #include "Car.hpp"
+#include "Player.hpp"
+#include "building.hpp"
 
 #define NCases 10
 
@@ -40,8 +42,11 @@ struct scene_structure {
 	std::array<Case*, NCases * NCases> Cases;
 
 	cgp::timer_event_periodic timer;
+	cgp::inputs_interaction_parameters sceneInputs;
 
+	House H;
 	Car C;
+	Player P;
 	
 	// ****************************** //
 	// Functions

@@ -114,6 +114,13 @@ void scene_structure::initialize()
 		std::cout << std::endl;
 	}
 
+	
+	P = Player();
+	P.initializePlayer();
+
+	H = House();
+	H.initializeHouse();
+
 	Car Ct(Cases[1]);
 	C = Ct;
 	C.initializeCar();
@@ -141,6 +148,14 @@ void scene_structure::display()
 	C.updateCar(dt);
 	C.drawCar(environment);
 
+	P.update(sceneInputs, dt);
+
+	//P.moveCamera(environment);
+	P.drawPlayer(environment);
+
+	H.drawHouse(environment, { 10,10,0 }, { 0,0,0 });
+
+
 
 
 	// Display the elements of the scene
@@ -154,6 +169,7 @@ void scene_structure::display_gui()
 {
 	ImGui::Checkbox("Frame", &gui.display_frame);
 	display_gui_falloff(environment); // helper function from multiple_lights (*)-optionnal
+	ImGui::SliderFloat("Speed", &Player::maxSpeed, 0, 10);
 }
 
 
