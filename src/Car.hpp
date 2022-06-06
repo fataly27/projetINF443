@@ -23,7 +23,7 @@ private:
 	cgp::vec3 p;
 	cgp::vec3 v;
 
-	int nextTile();
+	int nextTile(int in);
 public:
 	Car();
 	Car(Case*);
@@ -31,4 +31,8 @@ public:
 	void updateCar(float);
 	void drawCar(scene_environment_with_multiple_lights);
 
+	void changeColor(cgp::vec3 color);
+
+	cgp::vec3 getPos();
+	cgp::vec3 getV();
 };

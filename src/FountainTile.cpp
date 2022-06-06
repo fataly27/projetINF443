@@ -29,6 +29,8 @@ void FountainTile::drawTile(cgp::vec3 position, scene_environment_with_multiple_
 	cgp::draw(shape_green, environment);
 	cgp::draw(shape_grey, environment);
 
+	cgp::vec3 camPos = environment.camera.position();
+	if (cgp::norm(position - camPos) >= 50) return;
 	for (particle_structure& particle : particles)
 	{
 		sphere.transform.translation = particle.p + position;
