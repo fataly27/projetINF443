@@ -35,7 +35,16 @@ void BoidTile::drawTile(cgp::vec3 position, project_scene_environment environmen
 	shape_green.transform.translation = position;
 	cgp::draw(shape_green, environment);
 
+
+	cgp::vec3 camPos = environment.camera.position();
+	if (cgp::norm(position - camPos) >= 100) return;
+	if (cgp::norm(position - camPos) > 50) {
+		for (int i = 0; i < NBoids/2; i++)
+			B[i].drawBoid(environment, position);
+		return;
+	}
 	for (int i = 0; i < NBoids; i++) {
+		
 		B[i].drawBoid(environment, position);
 	}
 }
@@ -45,9 +54,7 @@ void BoidTile::initialiseTile()
 	shape_green.initialize(mesh_green, "Shape_green");
 	shape_green.shading.color = { 0, 0.2, 0 };
 
-	for (int i = 0; i < NBoids; i++) {
-		B[i].initialize();
-	}
+	B[0].initialize();
 }
 
 void BoidTile::updateTile(float dt)

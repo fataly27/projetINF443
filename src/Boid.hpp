@@ -8,21 +8,22 @@ class Boid
 public :
 	static constexpr int max = 200;
 
-	bool debug = false;
-	cgp::vec3 debugCenter;
-	cgp::mesh_drawable debugSphere;
 
 	static float factors[6];
 	static float proximity[3];
 	static float v;
 
+	static cgp::mesh* body_mesh;
+	static cgp::mesh_drawable* body;
 
 private:
 
 	cgp::vec3 position;
 	cgp::vec3 velocity;
-	cgp::mesh body_mesh;
-	cgp::mesh_drawable body;
+
+
+	static void setBodyMesh(cgp::mesh* body_mesh);
+	static void setBody(cgp::mesh_drawable* body);
 
 	std::array<Boid *, max> others;
 	int nbOthers = 0;
