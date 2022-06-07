@@ -37,8 +37,8 @@ void BoidTile::drawTile(cgp::vec3 position, project_scene_environment environmen
 
 
 	cgp::vec3 camPos = environment.camera.position();
-	if (cgp::norm(position - camPos) >= 100 || cgp::dot(environment.camera.front(), position - environment.camera.position()) < 0.f) return;
-	if (cgp::norm(position - camPos) > 50) {
+	if (cgp::norm(position - camPos) >= 50 || (cgp::dot(environment.camera.front(), position - environment.camera.position()) < 0.f && cgp::norm(position - camPos) > 10)) return;
+	if (cgp::norm(position - camPos) > 30) {
 		for (int i = 0; i < NBoids/2; i++)
 			B[i].drawBoid(environment, position);
 		return;

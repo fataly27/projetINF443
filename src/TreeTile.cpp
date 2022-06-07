@@ -41,7 +41,7 @@ void TreeTile::initialiseTile()
 
 void TreeTile::drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height)
 {
-	if (cgp::norm(position - environment.camera.position()) < 60.f && cgp::dot(environment.camera.front(), position - environment.camera.position()) > 0.f)
+	if (cgp::norm(position - environment.camera.position()) < 40.f && (cgp::dot(environment.camera.front(), position - environment.camera.position()) > 0.f || cgp::norm(position - environment.camera.position()) < 10.f))
 	{
 		for (int i = 0; i < n_trees; i++)
 		{

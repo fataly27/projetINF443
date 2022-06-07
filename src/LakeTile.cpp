@@ -42,7 +42,7 @@ void LakeTile::drawTile(cgp::vec3 position, project_scene_environment environmen
 	window_width = width;
 	window_height = height;
 
-	if (cgp::norm(position - environment.camera.position()) < 30.f)
+	if (cgp::norm(position - environment.camera.position()) < 30.f && (cgp::dot(environment.camera.front(), position - environment.camera.position()) > 0.f || cgp::norm(position - environment.camera.position()) < 10.f))
 	{
 		cgp::camera_around_center temp_camera = environment.camera;
 		cgp::vec3 camera_front = cgp::normalize(environment.camera.front());
@@ -105,7 +105,7 @@ void LakeTile::drawWithoutLake(cgp::vec3 position, project_scene_environment env
 
 	TreeTile::drawTile(position, environment);
 
-	if (cgp::norm(position - environment.camera.position()) < 60.f)
+	if (cgp::norm(position - environment.camera.position()) < 50.f && (cgp::dot(environment.camera.front(), position - environment.camera.position()) > 0.f || cgp::norm(position - environment.camera.position()) < 10.f))
 	{
 		for (int i = 0; i < n_lantern; i++)
 		{
@@ -118,7 +118,7 @@ void LakeTile::drawWithoutLake(cgp::vec3 position, project_scene_environment env
 
 void LakeTile::drawTileTransparent(cgp::vec3 position, project_scene_environment environment)
 {
-	if (cgp::norm(position - environment.camera.position()) < 40.f && cgp::dot(environment.camera.front(), position - environment.camera.position()) > 0.f)
+	if (cgp::norm(position - environment.camera.position()) < 40.f && (cgp::dot(environment.camera.front(), position - environment.camera.position()) > 0.f || cgp::norm(position - environment.camera.position()) < 10.f))
 	{
 		// Re-orient the grass shape to always face the camera direction
 		cgp::vec3 const front = cgp::normalize(environment.camera.front() * cgp::vec3{ 1, 1, 1 }); // front-vector of the camera with z-component
