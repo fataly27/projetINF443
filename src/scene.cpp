@@ -85,10 +85,13 @@ void scene_structure::initialize()
 
 void scene_structure::display(int width, int height)
 {
-	draw(skybox, environment);
-
 	float dt = timer.update();
 	float t = timer.t;
+
+	P.update(sceneInputs, dt);
+	P.moveCamera(environment, upwards);
+
+	draw(skybox, environment);
 
 	// The standard frame
 	if (gui.display_frame)
@@ -98,6 +101,8 @@ void scene_structure::display(int width, int height)
 
 	for (int i = 0; i < NCases * NCases; i++)
 		Cases[i]->drawCase(environment, width, height);
+
+	P.drawPlayer(environment);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -110,10 +115,6 @@ void scene_structure::display(int width, int height)
 	// Don't forget to re-activate the depth-buffer write
 	glDepthMask(true);
 	glDisable(GL_BLEND);
-
-	P.update(sceneInputs, dt);
-	P.moveCamera(environment, upwards);
-	P.drawPlayer(environment);
 
 }
 

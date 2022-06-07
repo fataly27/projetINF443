@@ -137,7 +137,6 @@ void LakeTile::initialiseTile()
 
 	initialiseReflectionFrameBuffer();
 
-
 	texture_image_id = cgp::opengl_load_texture_image(texture_file, GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 	shape.initialize(mesh, "LakeShape");
 	shape.texture = texture_image_id;

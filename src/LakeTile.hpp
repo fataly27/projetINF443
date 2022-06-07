@@ -13,8 +13,8 @@ class LakeTile : public TreeTile
 		float time;
 		float moveFactor;
 
-		int window_width;
-		int window_height;
+		int window_width = 1280;
+		int window_height = 1080;
 
 		cgp::mesh mesh;
 		cgp::mesh_drawable shape;
