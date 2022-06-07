@@ -14,6 +14,7 @@
 #include "LakeTile.hpp"
 #include "Player.hpp"
 #include "building.hpp"
+#include "BuildingTile.hpp"
 
 #define NCases 10
 
@@ -50,6 +51,7 @@ struct scene_structure {
 	BoidTile* BT;
 	FountainTile* FT;
 	LakeTile* TestLakeTile;
+	BuildingTile* BuildT;
 	
 	// ****************************** //
 	// Functions

@@ -4,8 +4,22 @@
 #include "FountainTile.hpp"
 #include "LakeTile.hpp"
 #include <cstdlib>
+#include "buildingTile.hpp"
+#include "ForestTile.hpp"
+#include "ForestRoadTile.hpp"
+#include "LakeTile.hpp"
 
-std::array<Tile*, N> Case::Tiles = { new TextureTile(0), new TextureTile(1), new TextureTile(2), new TextureTile(3), new TextureTile(4), new TextureTile(5), new TextureTile(6), new TextureTile(7), new TextureTile(8), new TextureTile(9), new TextureTile(10), new TextureTile(11), new TextureTile(12), new TextureTile(13), new TextureTile(14), new TextureTile(15) , new BoidTile(0), new FountainTile(0)};
+std::array<Tile*, N> Case::Tiles = {
+	new BuildingTile(1000, 0), new BuildingTile(1000, 1), new BuildingTile(1000, 2), new BuildingTile(1000, 3) ,
+	new BuildingTile(0111, 0), new BuildingTile(0111, 1), new BuildingTile(0111, 2), new BuildingTile(0111, 3) ,
+	new BuildingTile(1010, 0), new BuildingTile(1010, 1), new BuildingTile(1010, 2), new BuildingTile(1010, 3) ,
+	new BuildingTile(1100, 0), new BuildingTile(1100, 1), new BuildingTile(1100, 2), new BuildingTile(1100, 3) ,
+	new ForestTile(0),
+	new ForestRoadTile(0,0),new ForestRoadTile(0,1),new ForestRoadTile(0,2),new ForestRoadTile(0,3),
+	new ForestRoadTile(1,0),new ForestRoadTile(1,1),new ForestRoadTile(1,2),new ForestRoadTile(1,3),
+	new LakeTile(0,0), new LakeTile(0,1),new LakeTile(0,2),new LakeTile(0,3),
+	new BoidTile(0), new FountainTile(0)
+};
 
 void Case::initialiseTiles()
 {

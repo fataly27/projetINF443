@@ -48,7 +48,7 @@ include(${ABS_PATH_TO_LIBRARY})
 #  @src_files_third_party: all third party libraries compiled with the project
 
 
-add_executable(${executable_name} ${src_files_cgp} ${src_files_third_party} ${src_files} "src/BoidTile.cpp" "src/BoidTile.hpp" "src/FountainTile.cpp" "src/Car.cpp" "src/Car.hpp" "src/Player.cpp" "src/Player.hpp" "src/Player.hpp" "src/building.cpp" "src/building.hpp")
+add_executable(${executable_name} ${src_files_cgp} ${src_files_third_party} ${src_files} "src/BoidTile.cpp" "src/BoidTile.hpp" "src/FountainTile.cpp" "src/Car.cpp" "src/Car.hpp" "src/Player.cpp" "src/Player.hpp" "src/Player.hpp" "src/building.cpp" "src/building.hpp" "src/BuildingTile.cpp" "src/BuildingTile.hpp")
 
 
 
