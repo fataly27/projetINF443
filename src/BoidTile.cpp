@@ -54,6 +54,7 @@ void BoidTile::initialiseTile()
 	shape_green.initialize(mesh_green, "Shape_green");
 	shape_green.texture = cgp::opengl_load_texture_image("assets/tiles/0000/0000.png", GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
+	//All Boids use the same mesh, so we only need to initialize once
 	B[0].initialize();
 }
 

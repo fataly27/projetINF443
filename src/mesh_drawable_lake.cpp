@@ -30,9 +30,6 @@ void draw(mesh_drawable_lake const& drawable, project_scene_environment const& e
 	glBindTexture(GL_TEXTURE_2D, drawable.dudv_texture); opengl_check;
 	opengl_uniform(drawable.shader, "dudv_texture", 1);  opengl_check;
 
-	/*glActiveTexture(GL_TEXTURE2); opengl_check; // the additional texture (*)
-	glBindTexture(GL_TEXTURE_2D, drawable.depth_texture); opengl_check;
-	opengl_uniform(drawable.shader, "depth_texture", 2);  opengl_check;*/
 
 	// Standard call function
 	assert_cgp(drawable.number_triangles > 0, "Try to draw mesh_drawable with 0 triangles [name:" + drawable.name + "]"); opengl_check;
@@ -44,8 +41,6 @@ void draw(mesh_drawable_lake const& drawable, project_scene_environment const& e
 	glBindVertexArray(0);
 
 	// Clean the two textures binding to avoid any side effect after this draw
-	/*glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, 0);*/
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glActiveTexture(GL_TEXTURE0);

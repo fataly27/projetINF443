@@ -1,6 +1,6 @@
 #include "Boid.hpp"
 
-//variables to set
+//variables 
 float Boid::factors[6] = { 10, 1, 1, 1, 1, 1 };
 float Boid::proximity[3] = { 0.3, 0.5, 0.7 };
 float Boid::v = 2;
@@ -219,14 +219,7 @@ void Boid::applyForces()
 		+ alignWithOthers() * factors[3]
 		+ flyTowardOthers() * factors[4]
 		+ flyRandom() * factors[5];
-	/*
-	if (len(velocity) < vMin) {
-		velocity *= vMin / len(velocity);
-	}
-	if (len(velocity) > vMax) {
-		velocity *= vMax / len(velocity);
-	}
-	*/
+
 	if (len(velocity) == 0) velocity = { 0,0,1 };
 	velocity *= v / len(velocity);
 	bounceWalls();

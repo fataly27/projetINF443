@@ -46,7 +46,6 @@ void TreeTile::drawTile(cgp::vec3 position, project_scene_environment environmen
 		for (int i = 0; i < n_trees; i++)
 		{
 			tree_shape.transform.translation = position + TreePositions[i];
-			//tree_shape.transform.scaling = 0.1;
 			cgp::draw(tree_shape, environment);
 		}
 	}

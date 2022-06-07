@@ -19,7 +19,7 @@ LakeTile::LakeTile(int index, int rotation) : TreeTile()
 
 	lantern_billboard_texture_file = "assets/tiles/lake/lantern_billboard.png";
 
-	//mesh.fill_empty_field();
+	mesh.fill_empty_field();
 	n_trees = 60;
 	n_lantern = 200;
 }
@@ -29,9 +29,6 @@ LakeTile::~LakeTile()
 	glDeleteFramebuffers(1, &reflectionFrameBuffer);
 	glDeleteTextures(1, &reflectionTexture);
 	glDeleteRenderbuffers(1, &reflectionDepthBuffer);
-	//glDeleteFramebuffers(1, &refractionFrameBuffer);
-	//glDeleteTextures(1, &refractionTexture);
-	//glDeleteTextures(1, &refractionDepthTexture);
 }
 
 void LakeTile::drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height)
@@ -139,7 +136,7 @@ void LakeTile::initialiseTile()
 	TreeTile::initialiseTile();
 
 	initialiseReflectionFrameBuffer();
-	//initialiseRefractionFrameBuffer();
+
 
 	texture_image_id = cgp::opengl_load_texture_image(texture_file, GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 	shape.initialize(mesh, "LakeShape");
