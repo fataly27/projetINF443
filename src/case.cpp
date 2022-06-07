@@ -159,10 +159,10 @@ bool Case::isCaseFixed()
 }
 
 
-void Case::drawCase(project_scene_environment environment)
+void Case::drawCase(project_scene_environment environment, int width, int height)
 {
 	if (isFixed)
-		Tiles[FixedTile]->drawTile(Position, environment);
+		Tiles[FixedTile]->drawTile(Position, environment, width, height);
 }
 void Case::drawCaseTransparent(project_scene_environment environment)
 {

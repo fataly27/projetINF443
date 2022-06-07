@@ -13,6 +13,9 @@ class LakeTile : public TreeTile
 		float time;
 		float moveFactor;
 
+		int window_width;
+		int window_heigth;
+
 		cgp::mesh mesh;
 		cgp::mesh_drawable shape;
 		GLuint texture_image_id;
@@ -39,7 +42,7 @@ class LakeTile : public TreeTile
 	public:
 		LakeTile(int index, int rotation = Up);
 		~LakeTile();
-		virtual void drawTile(cgp::vec3 position, project_scene_environment environment) override;
+		virtual void drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height) override;
 		virtual void drawTileTransparent(cgp::vec3 position, project_scene_environment environment) override;
 		virtual void initialiseTile() override;
 		virtual void updateTile(float dt) override;

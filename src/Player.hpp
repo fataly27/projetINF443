@@ -14,7 +14,7 @@ public:
 	void initializePlayer();
 	void update(cgp::inputs_interaction_parameters inputs, float dt);
 	void drawPlayer(project_scene_environment environment);
-	void moveCamera(project_scene_environment& environment);
+	void moveCamera(project_scene_environment& environment, float upwards);
 
 
 	cgp::vec3 getPos();

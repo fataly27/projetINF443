@@ -44,22 +44,20 @@ struct scene_structure {
 	cgp::timer_event_periodic timer;
 	cgp::inputs_interaction_parameters sceneInputs;
 
-	House H;
 	Car C;
 	Player P;
-	
-	BoidTile* BT;
-	FountainTile* FT;
-	LakeTile* TestLakeTile;
-	BuildingTile* BuildT;
+
+	float upwards = 0.f;
 	
 	// ****************************** //
 	// Functions
 	// ****************************** //
 
 	void initialize();  // Standard initialization to be called before the animation loop
-	void display();     // The frame display to be called within the animation loop
+	void display(int width, int height);     // The frame display to be called within the animation loop
 	void display_gui(); // The display of the GUI, also called within the animation loop
+
+	void moveCamera(cgp::inputs_interaction_parameters& inputs);
 };
 
 

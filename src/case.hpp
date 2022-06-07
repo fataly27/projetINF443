@@ -27,7 +27,7 @@ class Case
 		void fixTile();
 		void update();
 		void updateCase(float);
-		void drawCase(project_scene_environment environment);
+		void drawCase(project_scene_environment environment, int width, int height);
 		void drawCaseTransparent(project_scene_environment environment);
 		bool isNeighborCase(Tile* tile, int dir);
 

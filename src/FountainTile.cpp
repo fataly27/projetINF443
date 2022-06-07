@@ -18,7 +18,7 @@ FountainTile::FountainTile(int index) : Tile()
 
 }
 
-void FountainTile::drawTile(cgp::vec3 position, project_scene_environment environment)
+void FountainTile::drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height)
 {
 	shape_black.transform.translation = position;
 	shape_blue.transform.translation = position;
@@ -42,16 +42,16 @@ void FountainTile::initialiseTile()
 {
 
 	sphere.initialize(cgp::mesh_primitive_sphere(sphere_radius), "sphere");
-	sphere.shading.color = { 0,0,1.0f };
+	sphere.shading.color = { 0.4f, 0.4f, 1.0f };
 
 	shape_black.initialize(mesh_black, "Shape_black");
 	shape_blue.initialize(mesh_blue, "Shape_blue");
 	shape_green.initialize(mesh_green, "Shape_green");
 	shape_grey.initialize(mesh_grey, "Shape_grey");
 	shape_black.shading.color = { 0, 0, 0 };
-	shape_blue.shading.color = { 0, 0.2, 1 };
-	shape_green.shading.color = { 0, 0.2, 0 };
-	shape_grey.shading.color = { 0.2, 0.2, 0.2 };
+	shape_blue.shading.color = { 0.3f, 0.3f, 1 };
+	shape_green.shading.color = { 0.3f, 0.8f, 0.4f };
+	shape_grey.shading.color = { 0.5f, 0.5f, 0.5f };
 
 }
 

@@ -10,7 +10,7 @@ class BuildingTile : public Tile
 	public :
 		BuildingTile(int index, int rotation = Up);
 		virtual void initialiseTile() override;
-		virtual void drawTile(cgp::vec3 position, project_scene_environment environment) override;
+		virtual void drawTile(cgp::vec3 position, project_scene_environment environment, int width = 0, int height = 0) override;
 	
 	private :
 		House house;

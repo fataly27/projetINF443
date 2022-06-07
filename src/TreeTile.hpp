@@ -21,7 +21,7 @@ class TreeTile : public Tile
 	public:
 		TreeTile();
 
-		virtual void drawTile(cgp::vec3 position, project_scene_environment environment) override;
+		virtual void drawTile(cgp::vec3 position, project_scene_environment environment, int width = 0, int height = 0) override;
 		virtual void initialiseTile() override;
 
 		virtual bool canPlaceTree(float x, float y) = 0;

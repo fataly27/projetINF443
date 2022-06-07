@@ -7,10 +7,10 @@ LakeTile::LakeTile(int index, int rotation) : TreeTile()
 
 	time = 0.f;
 
-	Aretes[Up] = 1;
+	Aretes[Up] = 2;
 	Aretes[Down] = 1;
-	Aretes[Left] = 1;
-	Aretes[Right] = 1;
+	Aretes[Left] = 2;
+	Aretes[Right] = 2;
 	mesh = cgp::mesh_load_file_obj("assets/tiles/lake/lac.obj");
 	texture_file = "assets/tiles/lake/lake_texture.png";
 
@@ -20,7 +20,7 @@ LakeTile::LakeTile(int index, int rotation) : TreeTile()
 	lantern_billboard_texture_file = "assets/tiles/lake/lantern_billboard.png";
 
 	//mesh.fill_empty_field();
-	n_trees = 80;
+	n_trees = 60;
 	n_lantern = 200;
 }
 
@@ -34,45 +34,49 @@ LakeTile::~LakeTile()
 	//glDeleteTextures(1, &refractionDepthTexture);
 }
 
-void LakeTile::drawTile(cgp::vec3 position, project_scene_environment environment)
+void LakeTile::drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height)
 {
-	cgp::camera_around_center temp_camera = environment.camera;
-	cgp::vec3 camera_front = cgp::normalize(environment.camera.front());
-	cgp::vec3 camera_ground_front = camera_front;
-	camera_ground_front.z = 0.f;
-	if (cgp::norm(camera_ground_front) < 0.01f)
-		camera_ground_front = cgp::vec3(1.f, 0.f, 0.f);
-	else
-		camera_ground_front = cgp::normalize(camera_ground_front);
-	float angle = 2 * std::acos(cgp::dot(camera_front, camera_ground_front));
+	if (cgp::norm(position - environment.camera.position()) < 30.f)
+	{
+		cgp::camera_around_center temp_camera = environment.camera;
+		cgp::vec3 camera_front = cgp::normalize(environment.camera.front());
+		cgp::vec3 camera_ground_front = camera_front;
+		camera_ground_front.z = 0.f;
+		if (cgp::norm(camera_ground_front) < 0.01f)
+			camera_ground_front = cgp::vec3(1.f, 0.f, 0.f);
+		else
+			camera_ground_front = cgp::normalize(camera_ground_front);
+		float angle = 2 * std::acos(cgp::dot(camera_front, camera_ground_front));
 
-	if (camera_front.z < 0.f)
-		angle *= -1.f;
+		if (camera_front.z < 0.f)
+			angle *= -1.f;
 
-	environment.camera.manipulator_rotate_roll_pitch_yaw(0, angle, 0);
+		environment.camera.manipulator_rotate_roll_pitch_yaw(0, angle, 0);
 
-	float center_distance = environment.camera.center_of_rotation.z - lake_deepness;
-	environment.camera.center_of_rotation.z = lake_deepness - center_distance;
+		float center_distance = environment.camera.center_of_rotation.z - lake_deepness;
+		environment.camera.center_of_rotation.z = lake_deepness - center_distance;
 
-	glEnable(GL_CLIP_DISTANCE0);
-	environment.plane = cgp::vec4(0, 0, 1, -lake_deepness);
-	bindReflectionFrameBuffer();
-	glClearColor(0.75f, 0.82f, 0.9f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClear(GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
-	drawWithoutLake(position, environment);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_CLIP_DISTANCE0);
+		environment.plane = cgp::vec4(0, 0, 1, -lake_deepness);
+		bindReflectionFrameBuffer();
+		glClearColor(0.75f, 0.82f, 0.9f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+		drawWithoutLake(position, environment);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glDepthMask(false);
-	drawTileTransparent(position, environment);
-	glDepthMask(true);
-	glDisable(GL_BLEND);
-	unbindCurrentFrameBuffer();
-	glDisable(GL_CLIP_DISTANCE0);
-	environment.plane = cgp::vec4(0, 0, 1, -100);
-	environment.camera = temp_camera;
+		glDepthMask(false);
+		drawTileTransparent(position, environment);
+		glDepthMask(true);
+		glDisable(GL_BLEND);
+		unbindCurrentFrameBuffer();
+		glDisable(GL_CLIP_DISTANCE0);
+		environment.plane = cgp::vec4(0, 0, 1, -100);
+		environment.camera = temp_camera;
+
+	}
 
 	drawWithoutLake(position, environment);
 	lake_shape.transform.translation = position;
@@ -95,26 +99,32 @@ void LakeTile::drawWithoutLake(cgp::vec3 position, project_scene_environment env
 
 	TreeTile::drawTile(position, environment);
 
-	for (int i = 0; i < n_lantern; i++)
+	if (cgp::norm(position - environment.camera.position()) < 60.f)
 	{
-		lantern_shape.transform.translation = position + LanternPositions[i] + LanternDisplacements[i];
-		lantern_shape.transform.scaling = lantern_scale / 1.23f;
-		cgp::draw(lantern_shape, environment);
+		for (int i = 0; i < n_lantern; i++)
+		{
+			lantern_shape.transform.translation = position + LanternPositions[i] + LanternDisplacements[i];
+			lantern_shape.transform.scaling = lantern_scale / 1.23f;
+			cgp::draw(lantern_shape, environment);
+		}
 	}
 }
 
 void LakeTile::drawTileTransparent(cgp::vec3 position, project_scene_environment environment)
 {
-	// Re-orient the grass shape to always face the camera direction
-	cgp::vec3 const front = cgp::normalize(environment.camera.front() * cgp::vec3{1, 1, 1}); // front-vector of the camera with z-component
-	// Rotation such that R*{1,0,0} = right-direction, R*{0,1,0} = front-direction
-	cgp::rotation_transform R = cgp::rotation_transform::between_vector({ 0,1,0 }, front);
-	lantern_billboard.transform.rotation = R;
-
-	for (int i = 0; i < n_lantern; i++)
+	if (cgp::norm(position - environment.camera.position()) < 40.f && cgp::dot(environment.camera.front(), position - environment.camera.position()) > 0.f)
 	{
-		lantern_billboard.transform.translation = position + LanternPositions[i] + LanternDisplacements[i];
-		draw(lantern_billboard, environment);
+		// Re-orient the grass shape to always face the camera direction
+		cgp::vec3 const front = cgp::normalize(environment.camera.front() * cgp::vec3{ 1, 1, 1 }); // front-vector of the camera with z-component
+		// Rotation such that R*{1,0,0} = right-direction, R*{0,1,0} = front-direction
+		cgp::rotation_transform R = cgp::rotation_transform::between_vector({ 0,1,0 }, front);
+		lantern_billboard.transform.rotation = R;
+
+		for (int i = 0; i < n_lantern; i++)
+		{
+			lantern_billboard.transform.translation = position + LanternPositions[i] + LanternDisplacements[i];
+			draw(lantern_billboard, environment);
+		}
 	}
 }
 
