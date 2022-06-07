@@ -36,6 +36,12 @@ LakeTile::~LakeTile()
 
 void LakeTile::drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height)
 {
+	if (height == 0 || width == 0 || height > 10000 || width > 10000)
+		return;
+
+	window_width = width;
+	window_height = height;
+
 	if (cgp::norm(position - environment.camera.position()) < 30.f)
 	{
 		cgp::camera_around_center temp_camera = environment.camera;
@@ -265,7 +271,7 @@ void LakeTile::bindReflectionFrameBuffer() //call before rendering to this FBO
 void LakeTile::unbindCurrentFrameBuffer() //call to switch to default frame buffer
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glViewport(0, 0, 1280, 1080);
+	glViewport(0, 0, window_width, window_height);
 }
 void LakeTile::bindFrameBuffer(int frameBuffer, int width, int height)
 {
