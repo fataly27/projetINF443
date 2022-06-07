@@ -23,7 +23,7 @@ class Tile
 		Tile();
 		bool isNeighbor(Tile* voisin, int direction);
 		virtual void updateTile(float);
-		virtual void drawTile(cgp::vec3 position, project_scene_environment environment) = 0;
+		virtual void drawTile(cgp::vec3 position, project_scene_environment environment, int width = 0, int height = 0) = 0;
 		virtual void drawTileTransparent(cgp::vec3 position, project_scene_environment environment);
 		virtual void initialiseTile() = 0;
 

@@ -2,18 +2,18 @@
 
 ForestTile::ForestTile(int index) : TreeTile()
 {
-	Aretes[Up] = 1;
-	Aretes[Down] = 1;
-	Aretes[Left] = 1;
-	Aretes[Right] = 1;
+	Aretes[Up] = 2;
+	Aretes[Down] = 2;
+	Aretes[Left] = 2;
+	Aretes[Right] = 2;
 
     terrain_mesh = create_terrain_mesh(70, 10.f);
 
 	//mesh.fill_empty_field();
-	n_trees = 10;
+	n_trees = 70;
 }
 
-void ForestTile::drawTile(cgp::vec3 position, project_scene_environment environment)
+void ForestTile::drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height)
 {
     terrain_shape.transform.translation = position;
 	cgp::draw(terrain_shape, environment);
@@ -26,7 +26,7 @@ void ForestTile::initialiseTile()
 	TreeTile::initialiseTile();
 
     terrain_shape.initialize(terrain_mesh, "ForestTerrainShape");
-    terrain_shape.shading.color = { 0.6f,0.85f,0.5f };
+    terrain_shape.shading.color = { 0.3f,0.8f,0.4f };
     terrain_shape.shading.phong.specular = 0.0f; // non-specular terrain material
 }
 

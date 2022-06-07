@@ -164,7 +164,7 @@ void TextureTile::initialiseTile()
 	shape.texture = texture_image_id;
 }
 
-void TextureTile::drawTile(cgp::vec3 position, project_scene_environment environment)
+void TextureTile::drawTile(cgp::vec3 position, project_scene_environment environment, int width = 0, int height = 0)
 {
 	shape.transform.translation = position;
 	cgp::draw(shape, environment);

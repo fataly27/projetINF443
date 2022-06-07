@@ -7,7 +7,7 @@ BoidTile::BoidTile(int) : Tile()
 	Aretes[Left] = 0;
 	Aretes[Right] = 0;
 
-	mesh_green = cgp::mesh_load_file_obj("assets/tiles/0000/green.obj");
+	mesh_green = cgp::mesh_load_file_obj("assets/tiles/0000/0000.obj");
 	mesh_green.fill_empty_field();
 
 
@@ -30,14 +30,14 @@ BoidTile::BoidTile(int) : Tile()
 	}
 }
 
-void BoidTile::drawTile(cgp::vec3 position, project_scene_environment environment)
+void BoidTile::drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height)
 {
 	shape_green.transform.translation = position;
 	cgp::draw(shape_green, environment);
 
 
 	cgp::vec3 camPos = environment.camera.position();
-	if (cgp::norm(position - camPos) >= 100) return;
+	if (cgp::norm(position - camPos) >= 100 || cgp::dot(environment.camera.front(), position - environment.camera.position()) < 0.f) return;
 	if (cgp::norm(position - camPos) > 50) {
 		for (int i = 0; i < NBoids/2; i++)
 			B[i].drawBoid(environment, position);
@@ -52,7 +52,7 @@ void BoidTile::drawTile(cgp::vec3 position, project_scene_environment environmen
 void BoidTile::initialiseTile()
 {
 	shape_green.initialize(mesh_green, "Shape_green");
-	shape_green.shading.color = { 0, 0.2, 0 };
+	shape_green.texture = cgp::opengl_load_texture_image("assets/tiles/0000/0000.png", GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 
 	B[0].initialize();
 }

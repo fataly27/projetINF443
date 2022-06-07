@@ -18,8 +18,12 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+uniform vec4 plane;
+
 void main()
 {
+	gl_ClipDistance[0] = 5;
+
 	fragment.position = vec3(model * vec4(position,1.0));
 	fragment.normal   = vec3(model * vec4(normal  ,0.0));
 	fragment.color = color;

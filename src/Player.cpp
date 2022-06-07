@@ -109,9 +109,9 @@ void Player::drawPlayer(project_scene_environment environment)
 	
 }
 
-void Player::moveCamera(project_scene_environment& environment)
+void Player::moveCamera(project_scene_environment& environment, float upwards)
 {
-	environment.camera.look_at(pos - 3*dir + cgp::vec3(0,0,1) + cgp::cross(cgp::vec3(0, 0, 1), dir), pos + cgp::cross(cgp::vec3(0, 0, 1), dir), {0,0,1});
+	environment.camera.look_at(pos - 3*dir + cgp::vec3(0,0,1) + cgp::cross(cgp::vec3(0, 0, 1), dir), cgp::vec3(0, 0, upwards) + pos + cgp::cross(cgp::vec3(0, 0, 1), dir), {0,0,1});
 }
 
 void Player::initializePlayer()

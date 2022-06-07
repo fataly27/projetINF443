@@ -9,8 +9,8 @@ BuildingTile::BuildingTile(int index, int rotation)
 	{
 		case 1000:
 			Aretes[Up] = 0;
-			Aretes[Right] = 1;
-			Aretes[Down] = 0;
+			Aretes[Right] = 0;
+			Aretes[Down] = 1;
 			Aretes[Left] = 0;
 			ground_mesh = cgp::mesh_load_file_obj("assets/tiles/1000/1000.obj");
 			texture_file = "assets/tiles/1000/1000.png";
@@ -19,8 +19,8 @@ BuildingTile::BuildingTile(int index, int rotation)
 			break;
 		case 0111:
 			Aretes[Up] = 1;
-			Aretes[Right] = 0;
-			Aretes[Down] = 1;
+			Aretes[Right] = 1;
+			Aretes[Down] = 0;
 			Aretes[Left] = 1;
 			ground_mesh = cgp::mesh_load_file_obj("assets/tiles/0111/0111.obj");
 			texture_file = "assets/tiles/0111/0111.png";
@@ -28,10 +28,10 @@ BuildingTile::BuildingTile(int index, int rotation)
 			angle = cgp::rand_interval(-cgp::Pi * 1 / 8, cgp::Pi * 1 / 8);
 			break;
 		case 1010:
-			Aretes[Up] = 0;
-			Aretes[Right] = 1;
-			Aretes[Down] = 0;
-			Aretes[Left] = 1;
+			Aretes[Up] = 1;
+			Aretes[Right] = 0;
+			Aretes[Down] = 1;
+			Aretes[Left] = 0;
 			ground_mesh = cgp::mesh_load_file_obj("assets/tiles/1010/1010.obj");
 			texture_file = "assets/tiles/1010/1010.png";
 			batPos = { -2,-4,0 };
@@ -39,9 +39,9 @@ BuildingTile::BuildingTile(int index, int rotation)
 			break;
 		case 1100:
 			Aretes[Up] = 0;
-			Aretes[Right] = 1;
+			Aretes[Right] = 0;
 			Aretes[Down] = 1;
-			Aretes[Left] = 0;
+			Aretes[Left] = 1;
 			ground_mesh = cgp::mesh_load_file_obj("assets/tiles/1100/1100.obj");
 			texture_file = "assets/tiles/1100/1100.png";
 			batPos = { -1,-3,0 };
@@ -60,7 +60,7 @@ void BuildingTile::initialiseTile()
 	house.initializeHouse();
 }
 
-void BuildingTile::drawTile(cgp::vec3 position, project_scene_environment environment)
+void BuildingTile::drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height)
 {
 	ground.transform.translation = position;
 

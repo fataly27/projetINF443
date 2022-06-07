@@ -16,6 +16,6 @@ class TextureTile : public Tile
 
 	public:
 		TextureTile(int type);
-		virtual void drawTile(cgp::vec3 position, project_scene_environment environment) override;
+		virtual void drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height) override;
 		virtual void initialiseTile() override;
 };

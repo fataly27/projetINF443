@@ -60,7 +60,7 @@ int main(int, char* argv[])
 		scene.display_gui();
 
 		// Call the display of the scene
-		scene.display();
+		scene.display(inputs.window.width, inputs.window.height);
 		
 		// End of ImGui display and handle GLFW events
 		helper_common.frame_end(window);
@@ -87,8 +87,7 @@ void mouse_move_callback(GLFWwindow* /*window*/, double xpos, double ypos)
 {
 	inputs.mouse_position_update( { xpos, ypos } );
 
-	// Default trackball mode - change this behavior as you wish
-	camera_standard_behavior_rotation_trackball(scene.environment.camera, inputs);
+	scene.moveCamera(inputs);
 }
 
 // This function is called everytime a mouse button is clicked/released

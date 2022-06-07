@@ -37,8 +37,8 @@ void scene_structure::initialize()
 
 	// Initialize the camera
 	environment.projection = camera_projection::perspective(50.0f *Pi/180, 1.0f, 0.1f, 500.0f);
-	environment.camera.distance_to_center = 10.0f;
-	environment.camera.look_at({ 3,1,2 }, { 0,0,0.5 }, { 0,0,1 });
+
+	environment.light = { 0.f, 50.f, 50.f };
 
 	Case::initialiseTiles();
 
@@ -95,50 +95,28 @@ void scene_structure::initialize()
 		}
 		std::cout << std::endl;
 	}
-	
-	BT = new BoidTile(0);
-	FT = new FountainTile(0);
-	TestLakeTile = new LakeTile(0, Up);
-	BuildT = new BuildingTile(1000, Up);
-
-	BuildT->initialiseTile();
-	//TestLakeTile->initialiseTile();
 
 	Car Ct(Cases[1]);
 
 	P = Player();
 	P.initializePlayer();
-
-	H = House();
-	H.initializeHouse();
 }
 
-void scene_structure::display()
+void scene_structure::display(int width, int height)
 {
 	draw(skybox, environment);
 
 	float dt = timer.update();
 	float t = timer.t;
 
-	// Update the position and color of the lights
-	//compute_light_position(t, environment);
-
 	// The standard frame
 	if (gui.display_frame)
 		draw(global_frame, environment);
-
-	//TestLakeTile->updateTile(dt);
-	//TestLakeTile->drawTile(vec3(-10, -10, 0), environment);
-	BuildT->drawTile(vec3(-10, -10, 0), environment);
-
-
-	H.drawHouse(environment, { 10,10,0 }, 0.23);
 	
 	Cases[0]->updateCase(dt);
 
 	for (int i = 0; i < NCases * NCases; i++)
-		Cases[i]->drawCase(environment);
-
+		Cases[i]->drawCase(environment, width, height);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -148,14 +126,12 @@ void scene_structure::display()
 	for (int i = 0; i < NCases * NCases; i++)
 		Cases[i]->drawCaseTransparent(environment);
 
-	//TestLakeTile->drawTileTransparent(vec3(-10, -10, 0), environment);
-
 	// Don't forget to re-activate the depth-buffer write
 	glDepthMask(true);
 	glDisable(GL_BLEND);
 
 	P.update(sceneInputs, dt);
-	P.moveCamera(environment);
+	P.moveCamera(environment, upwards);
 	P.drawPlayer(environment);
 
 }
@@ -166,4 +142,23 @@ void scene_structure::display_gui()
 
 	ImGui::SliderFloat("Fog falloff", &environment.fog_falloff, 0, 0.05f, "%0.5f", 2.0f);
 	ImGui::SliderFloat("Speed", &Player::maxSpeed, 0, 10);
+}
+
+void scene_structure::moveCamera(inputs_interaction_parameters& inputs)
+{
+	vec2 const& p1 = inputs.mouse.position.current;
+	vec2 const& p0 = inputs.mouse.position.previous;
+
+	bool const event_valid = !inputs.mouse.on_gui;
+	bool const click_left = inputs.mouse.click.left;
+	bool const click_right = inputs.mouse.click.right;
+	bool const ctrl = inputs.keyboard.ctrl;
+
+	if (event_valid) { // If the mouse cursor is not on the ImGui area
+
+		if (click_left)     // Rotation of the camera around
+		{
+			upwards += p0.y - p1.y;
+		}
+	}
 }

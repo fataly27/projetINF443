@@ -40,7 +40,7 @@ class FountainTile : public Tile
 
 	public:
 		FountainTile(int index);
-		virtual void drawTile(cgp::vec3 position, project_scene_environment environment) override;
+		virtual void drawTile(cgp::vec3 position, project_scene_environment environment, int width = 0, int height = 0) override;
 		virtual void initialiseTile() override;
 		virtual void updateTile(float dt) override;
 };
