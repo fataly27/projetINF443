@@ -25,8 +25,3 @@ class House
 		cgp::mesh_drawable window;
 		cgp::mesh_drawable door;
 };
-
-class Building
-{
-
-};

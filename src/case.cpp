@@ -9,6 +9,7 @@
 #include "ForestRoadTile.hpp"
 #include "LakeTile.hpp"
 
+//defines what Tiles we are using for WFC
 std::array<Tile*, N> Case::Tiles = {
 	new BuildingTile(1000, 0), new BuildingTile(1000, 1), new BuildingTile(1000, 2), new BuildingTile(1000, 3) ,
 	new BuildingTile(0111, 0), new BuildingTile(0111, 1), new BuildingTile(0111, 2), new BuildingTile(0111, 3) ,

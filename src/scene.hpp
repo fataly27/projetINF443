@@ -1,8 +1,5 @@
 #pragma once
 
-/** This file contains the custom function signature and structure associated the scene 
-*  The (*) indicates elements that are specific to the use of the multiple_lights  */
-
 #include <array>
 #include "cgp/cgp.hpp"
 #include "ProjectEnvironment.hpp"

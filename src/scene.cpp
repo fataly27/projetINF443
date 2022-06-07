@@ -3,37 +3,18 @@
 #include <cstdlib>
 #include <ctime>
 
-/** This file contains the custom implementation associated the scene 
-*  The (*) indicates elements that are specific to the use of the multiple_lights and that should be handled if you want to use this effect in another scene. */
 
 using namespace cgp;
 
 
 void scene_structure::initialize()
 {
-	// Specific Shader (*)
-	// ***************************************** //
-	// Load a new custom shader that take into account spotlights (note the new shader file in shader/ directory)
-	// Make sure you load an set this shader for the shapes that need to be illuminated
+
 	GLuint const shader_lights = opengl_load_shader("shaders/project/vert.glsl", "shaders/project/frag.glsl");                 
 	mesh_drawable::default_shader = shader_lights;   // set this shader as the default one for all new shapes declared after this line 
-
-	// Initialize the skybox (*)
-	// ***************************************** //
 	skybox.initialize("assets/skybox/");         // indicate a path where to load the 6 texture images
-
-
-	// Create the surrounding shapes
-	// ***************************************** //
-	// The standard frame
 	global_frame.initialize(mesh_primitive_frame(), "Frame");
-
-	// Environment parameters
-	// ***************************************** //
-
-	// The background color is set to match the color of the fog defined in the shader (*)
 	environment.background_color = { 0.75f, 0.82f, 0.9f };
-
 
 	// Initialize the camera
 	environment.projection = camera_projection::perspective(50.0f *Pi/180, 1.0f, 0.1f, 500.0f);

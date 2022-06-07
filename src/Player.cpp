@@ -127,6 +127,7 @@ void Player::initializePlayer()
 
 }
 
+//inverted kinematics for the right foot
 void Player::rightIK(cgp::vec3 target) 
 {
 	rightKnee = hipPos[0] -lenBone*dir;

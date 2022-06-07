@@ -15,7 +15,7 @@ ForestRoadTile::ForestRoadTile(int index, int rotation) : TreeTile()
 		mesh = cgp::mesh_load_file_obj("assets/tiles/1010/1010.obj");
 		texture_file = "assets/tiles/1010/1010.png";
 
-		//mesh.fill_empty_field();
+		mesh.fill_empty_field();
 		n_trees = 40;
 	}
 	else if (index == 1)
@@ -28,7 +28,7 @@ ForestRoadTile::ForestRoadTile(int index, int rotation) : TreeTile()
 		mesh = cgp::mesh_load_file_obj("assets/tiles/1100/1100.obj");
 		texture_file = "assets/tiles/1100/1100.png";
 
-		//mesh.fill_empty_field();
+		mesh.fill_empty_field();
 		n_trees = 40;
 	}
 }
