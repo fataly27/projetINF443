@@ -9,31 +9,31 @@ ForestRoadTile::ForestRoadTile(int index, int rotation) : TreeTile()
 	{
 		Aretes[Up] = 1;
 		Aretes[Down] = 1;
-		Aretes[Left] = 1;
-		Aretes[Right] = 1;
+		Aretes[Left] = 2;
+		Aretes[Right] = 2;
 
-		mesh = cgp::mesh_load_file_obj("assets/tiles/forest_road/forest_road.obj");
-		texture_file = "assets/tiles/forest_road/forest_road_texture.png";
+		mesh = cgp::mesh_load_file_obj("assets/tiles/1010/1010.obj");
+		texture_file = "assets/tiles/1010/1010.png";
 
 		//mesh.fill_empty_field();
-		n_trees = 150;
+		n_trees = 40;
 	}
 	else if (index == 1)
 	{
-		Aretes[Up] = 1;
+		Aretes[Up] = 2;
 		Aretes[Down] = 1;
 		Aretes[Left] = 1;
-		Aretes[Right] = 1;
+		Aretes[Right] = 2;
 
-		mesh = cgp::mesh_load_file_obj("assets/tiles/forest_road/forest_road_corner.obj");
-		texture_file = "assets/tiles/forest_road/forest_road_corner_texture.png";
+		mesh = cgp::mesh_load_file_obj("assets/tiles/1100/1100.obj");
+		texture_file = "assets/tiles/1100/1100.png";
 
 		//mesh.fill_empty_field();
-		n_trees = 150;
+		n_trees = 40;
 	}
 }
 
-void ForestRoadTile::drawTile(cgp::vec3 position, project_scene_environment environment)
+void ForestRoadTile::drawTile(cgp::vec3 position, project_scene_environment environment, int width, int height)
 {
     shape.transform.translation = position;
 
