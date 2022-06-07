@@ -140,7 +140,6 @@ void scene_structure::display()
 	for (int i = 0; i < NCases * NCases; i++)
 		Cases[i]->drawCase(environment);
 
-
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

@@ -1,4 +1,5 @@
 #include "LakeTile.hpp"
+#include <cmath>
 
 LakeTile::LakeTile(int index, int rotation) : TreeTile()
 {
@@ -23,11 +24,67 @@ LakeTile::LakeTile(int index, int rotation) : TreeTile()
 	n_lantern = 200;
 }
 
+LakeTile::~LakeTile()
+{
+	glDeleteFramebuffers(1, &reflectionFrameBuffer);
+	glDeleteTextures(1, &reflectionTexture);
+	glDeleteRenderbuffers(1, &reflectionDepthBuffer);
+	//glDeleteFramebuffers(1, &refractionFrameBuffer);
+	//glDeleteTextures(1, &refractionTexture);
+	//glDeleteTextures(1, &refractionDepthTexture);
+}
+
 void LakeTile::drawTile(cgp::vec3 position, project_scene_environment environment)
+{
+	cgp::camera_around_center temp_camera = environment.camera;
+	cgp::vec3 camera_front = cgp::normalize(environment.camera.front());
+	cgp::vec3 camera_ground_front = camera_front;
+	camera_ground_front.z = 0.f;
+	if (cgp::norm(camera_ground_front) < 0.01f)
+		camera_ground_front = cgp::vec3(1.f, 0.f, 0.f);
+	else
+		camera_ground_front = cgp::normalize(camera_ground_front);
+	float angle = 2 * std::acos(cgp::dot(camera_front, camera_ground_front));
+
+	if (camera_front.z < 0.f)
+		angle *= -1.f;
+
+	environment.camera.manipulator_rotate_roll_pitch_yaw(0, angle, 0);
+
+	float center_distance = environment.camera.center_of_rotation.z - lake_deepness;
+	environment.camera.center_of_rotation.z = lake_deepness - center_distance;
+
+	glEnable(GL_CLIP_DISTANCE0);
+	environment.plane = cgp::vec4(0, 0, 1, -lake_deepness);
+	bindReflectionFrameBuffer();
+	glClearColor(0.75f, 0.82f, 0.9f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	drawWithoutLake(position, environment);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glDepthMask(false);
+	drawTileTransparent(position, environment);
+	glDepthMask(true);
+	glDisable(GL_BLEND);
+	unbindCurrentFrameBuffer();
+	glDisable(GL_CLIP_DISTANCE0);
+	environment.plane = cgp::vec4(0, 0, 1, -100);
+	environment.camera = temp_camera;
+
+	drawWithoutLake(position, environment);
+	lake_shape.transform.translation = position;
+	lake_shape.moveFactor = moveFactor;
+	draw(lake_shape, environment);
+}
+
+void LakeTile::drawWithoutLake(cgp::vec3 position, project_scene_environment environment)
 {
 	shape.transform.translation = position;
 
-	if(Rotation == Right)
+	if (Rotation == Right)
 		shape.transform.rotation = cgp::rotation_transform::from_axis_angle({ 0,0,1 }, -cgp::Pi / 2);
 	else if (Rotation == Down)
 		shape.transform.rotation = cgp::rotation_transform::from_axis_angle({ 0,0,1 }, cgp::Pi);
@@ -65,9 +122,17 @@ void LakeTile::initialiseTile()
 {
 	TreeTile::initialiseTile();
 
+	initialiseReflectionFrameBuffer();
+	//initialiseRefractionFrameBuffer();
+
 	texture_image_id = cgp::opengl_load_texture_image(texture_file, GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 	shape.initialize(mesh, "LakeShape");
 	shape.texture = texture_image_id;
+
+	lake_shape.initialize(cgp::mesh_primitive_quadrangle({ -3.f, -3.f, lake_deepness }, { -3.f, 3.f, lake_deepness }, { 3.f, 3.f, lake_deepness }, { 3.f, -3.f, lake_deepness }), "Lake");
+	lake_shape.shader = cgp::opengl_load_shader("shaders/project_lake/vert.glsl", "shaders/project_lake/frag.glsl");
+	lake_shape.texture = reflectionTexture;
+	lake_shape.dudv_texture = cgp::opengl_load_texture_image("assets/tiles/lake/waterDUDV.png", GL_REPEAT, GL_REPEAT);
 
 	lantern_texture_image_id = cgp::opengl_load_texture_image(lantern_texture_file, GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 	lantern_shape.initialize(lantern_mesh, "Lantern");
@@ -102,18 +167,23 @@ void LakeTile::initialiseTile()
 		}
 
 		if (Rotation == Up)
-			LanternPositions.push_back(cgp::vec3(10 * x - 5.f, 10 * y - 5.f, 5.f * z + 5.f));
+			LanternPositions.push_back(cgp::vec3(10 * x - 5.f, 10 * y - 5.f, 5.f * z + 3.f));
 		else if (Rotation == Right)
-			LanternPositions.push_back(cgp::vec3(10 * y - 5.f, -(10 * x - 5.f), 5.f * z + 5.f));
+			LanternPositions.push_back(cgp::vec3(10 * y - 5.f, -(10 * x - 5.f), 5.f * z + 3.f));
 		else if (Rotation == Down)
-			LanternPositions.push_back(cgp::vec3(-(10 * x - 5.f), -(10 * y - 5.f), 5.f * z + 5.f));
+			LanternPositions.push_back(cgp::vec3(-(10 * x - 5.f), -(10 * y - 5.f), 5.f * z + 3.f));
 		else if (Rotation == Left)
-			LanternPositions.push_back(cgp::vec3(-(10 * y - 5.f), 10 * x - 5.f, 5.f * z + 5.f));
+			LanternPositions.push_back(cgp::vec3(-(10 * y - 5.f), 10 * x - 5.f, 5.f * z + 3.f));
 	}
 }
 
 void LakeTile::updateTile(float dt)
 {
+	moveFactor += 0.03f * dt;
+	while (moveFactor >= 1.f)
+		moveFactor -= 1.f;
+
+
 	time += dt / 5.f;
 
 	for (int i = 0; i < n_lantern; i++)
@@ -137,4 +207,59 @@ bool LakeTile::canPlaceTree(float x, float y)
 float LakeTile::terrainHeight(float x, float y)
 {
 	return 0.f;
+}
+
+//About the reflection
+void LakeTile::initialiseReflectionFrameBuffer()
+{
+	reflectionFrameBuffer = createFrameBuffer();
+	reflectionTexture = createTextureAttachment(REFLECTION_WIDTH, REFLECTION_HEIGHT);
+	reflectionDepthBuffer = createDepthBufferAttachment(REFLECTION_WIDTH, REFLECTION_HEIGHT);
+	unbindCurrentFrameBuffer();
+}
+int LakeTile::createFrameBuffer()
+{
+	GLuint frameBuffer;
+	glGenFramebuffers(1, &frameBuffer);
+	//generate name for frame buffer
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	//create the framebuffer
+	glDrawBuffer(GL_COLOR_ATTACHMENT0);
+	//indicate that we will always render to color attachment 0
+	return frameBuffer;
+}
+int LakeTile::createTextureAttachment(int width, int height)
+{
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture, 0);
+	return texture;
+}
+int LakeTile::createDepthBufferAttachment(int width, int height)
+{
+	GLuint depthBuffer;
+	glGenRenderbuffers(1, &depthBuffer);
+	glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
+	return depthBuffer;
+}
+void LakeTile::bindReflectionFrameBuffer() //call before rendering to this FBO
+{
+	bindFrameBuffer(reflectionFrameBuffer, REFLECTION_WIDTH, REFLECTION_HEIGHT);
+}
+void LakeTile::unbindCurrentFrameBuffer() //call to switch to default frame buffer
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, 1280, 1080);
+}
+void LakeTile::bindFrameBuffer(int frameBuffer, int width, int height)
+{
+	glBindTexture(GL_TEXTURE_2D, 0); //To make sure the texture isn't bound
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	glViewport(0, 0, width, height);
 }
