@@ -5,7 +5,7 @@
 #include "cgp/cgp.hpp"
 #include "ProjectEnvironment.hpp"
 
-#define N 18
+#define N 31
 
 class Case
 {

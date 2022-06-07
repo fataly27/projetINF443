@@ -90,7 +90,6 @@ void Player::drawPlayer(project_scene_environment environment)
 	bone.transform.translation = pos + rightAnkle;
 	bone.transform.rotation = cgp::rotation_transform::between_vector({ 0,0,1 }, dir);
 	bone.transform.scaling = 0.3;
-	if (foot == 0) bone.shading.color = { 1,0,0 };
 	cgp::draw(bone, environment);
 	bone.transform.scaling = 1;
 	bone.shading.color = { 0,0.3,0.8 };
@@ -104,7 +103,6 @@ void Player::drawPlayer(project_scene_environment environment)
 	bone.transform.translation = pos + leftAnkle;
 	bone.transform.rotation = cgp::rotation_transform::between_vector({ 0,0,1 }, dir);
 	bone.transform.scaling = 0.3;
-	if (foot == 1) bone.shading.color = { 1,0,0 };
 	cgp::draw(bone, environment);
 	bone.transform.scaling = 1;
 	bone.shading.color = { 0,0.3,0.8 };

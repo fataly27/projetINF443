@@ -1,5 +1,4 @@
 #pragma once
-#include "tile.hpp"
 #include "ProjectEnvironment.hpp"
 #include "cgp/cgp.hpp"
 
@@ -8,7 +7,7 @@ class House
 	public:
 		House();
 		void initializeHouse();
-		void drawHouse(project_scene_environment environment,  cgp::vec3 position, cgp::vec3 dir);
+		void drawHouse(project_scene_environment environment,  cgp::vec3 position, float angle);
 	private:
 		int height;
 		float doorPos;

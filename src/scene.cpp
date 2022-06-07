@@ -99,8 +99,10 @@ void scene_structure::initialize()
 	BT = new BoidTile(0);
 	FT = new FountainTile(0);
 	TestLakeTile = new LakeTile(0, Up);
+	BuildT = new BuildingTile(1000, Up);
 
-	TestLakeTile->initialiseTile();
+	BuildT->initialiseTile();
+	//TestLakeTile->initialiseTile();
 
 	Car Ct(Cases[1]);
 
@@ -125,15 +127,12 @@ void scene_structure::display()
 	if (gui.display_frame)
 		draw(global_frame, environment);
 
-	TestLakeTile->updateTile(dt);
-	TestLakeTile->drawTile(vec3(-10, -10, 0), environment);
-	
-	P.update(sceneInputs, dt);
+	//TestLakeTile->updateTile(dt);
+	//TestLakeTile->drawTile(vec3(-10, -10, 0), environment);
+	BuildT->drawTile(vec3(-10, -10, 0), environment);
 
-	//P.moveCamera(environment);
-	P.drawPlayer(environment);
 
-	H.drawHouse(environment, { 10,10,0 }, { 0,0,0 });
+	H.drawHouse(environment, { 10,10,0 }, 0.23);
 	
 	Cases[0]->updateCase(dt);
 
@@ -148,11 +147,16 @@ void scene_structure::display()
 	for (int i = 0; i < NCases * NCases; i++)
 		Cases[i]->drawCaseTransparent(environment);
 
-	TestLakeTile->drawTileTransparent(vec3(-10, -10, 0), environment);
+	//TestLakeTile->drawTileTransparent(vec3(-10, -10, 0), environment);
 
 	// Don't forget to re-activate the depth-buffer write
 	glDepthMask(true);
 	glDisable(GL_BLEND);
+
+	P.update(sceneInputs, dt);
+	P.moveCamera(environment);
+	P.drawPlayer(environment);
+
 }
 
 void scene_structure::display_gui()
