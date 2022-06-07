@@ -5,6 +5,8 @@ BuildingTile::BuildingTile(int index, int rotation)
 	Rotation = rotation;
 	Index = index;
 
+	cgp::rotation_transform R = cgp::rotation_transform::from_axis_angle({ 0,0,1 }, -cgp::Pi / 2);
+
 	switch (index)
 	{
 		case 1000:
@@ -14,8 +16,8 @@ BuildingTile::BuildingTile(int index, int rotation)
 			Aretes[Left] = 0;
 			ground_mesh = cgp::mesh_load_file_obj("assets/tiles/1000/1000.obj");
 			texture_file = "assets/tiles/1000/1000.png";
-			batPos = { 0.6,-2.5,0 };
-			angle = cgp::rand_interval(cgp::Pi * 7 / 8, cgp::Pi * 9 / 8);
+			batPos = R* cgp::vec3(0.6,-2.5,0);
+			angle = -cgp::Pi / 2 +  cgp::rand_interval(cgp::Pi * 7 / 8, cgp::Pi * 9 / 8);
 			break;
 		case 0111:
 			Aretes[Up] = 1;
@@ -24,8 +26,8 @@ BuildingTile::BuildingTile(int index, int rotation)
 			Aretes[Left] = 1;
 			ground_mesh = cgp::mesh_load_file_obj("assets/tiles/0111/0111.obj");
 			texture_file = "assets/tiles/0111/0111.png";
-			batPos = { 0.2,2.5,0 };
-			angle = cgp::rand_interval(-cgp::Pi * 1 / 8, cgp::Pi * 1 / 8);
+			batPos =  R * cgp::vec3(0.2,2.5,0);
+			angle = -cgp::Pi / 2 + cgp::rand_interval(-cgp::Pi * 1 / 8, cgp::Pi * 1 / 8);
 			break;
 		case 1010:
 			Aretes[Up] = 1;
@@ -34,7 +36,7 @@ BuildingTile::BuildingTile(int index, int rotation)
 			Aretes[Left] = 0;
 			ground_mesh = cgp::mesh_load_file_obj("assets/tiles/1010/1010.obj");
 			texture_file = "assets/tiles/1010/1010.png";
-			batPos = { -2,-4,0 };
+			batPos = cgp::vec3(-2,-4,0 );
 			angle = cgp::rand_interval(cgp::Pi * 3/ 8, cgp::Pi * 5/ 8);
 			break;
 		case 1100:
@@ -44,8 +46,8 @@ BuildingTile::BuildingTile(int index, int rotation)
 			Aretes[Left] = 1;
 			ground_mesh = cgp::mesh_load_file_obj("assets/tiles/1100/1100.obj");
 			texture_file = "assets/tiles/1100/1100.png";
-			batPos = { -1,-3,0 };
-			angle = cgp::rand_interval(cgp::Pi * 5 / 8, cgp::Pi * 7 / 8);
+			batPos =  R * cgp::vec3(-1,-3,0 );
+			angle = -cgp::Pi/2 + cgp::rand_interval(cgp::Pi * 5 / 8, cgp::Pi * 7 / 8);
 			break;
 	}
 
